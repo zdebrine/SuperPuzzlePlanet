@@ -1,4 +1,5 @@
 PODS:
+  - "@react-native-mapbox-gl-mapbox-static (5.8.0)"
   - Alamofire (5.0.5)
   - boost-for-react-native (1.63.0)
   - DoubleConversion (1.1.6)
@@ -21,6 +22,9 @@ PODS:
     - glog
   - glog (0.3.5)
   - JWTDecode (2.5.0)
+  - Mapbox-iOS-SDK (5.8.0):
+    - MapboxMobileEvents (= 0.10.2)
+  - MapboxMobileEvents (0.10.2)
   - Permission-BluetoothPeripheral (2.2.2):
     - RNPermissions
   - Permission-LocationAlways (2.2.2):
@@ -195,6 +199,25 @@ PODS:
     - React-cxxreact (= 0.63.3)
     - React-jsi (= 0.63.3)
   - React-jsinspector (0.63.3)
+  - react-native-mapbox-gl (8.1.0-rc.9):
+    - "@react-native-mapbox-gl-mapbox-static (~> 5.8.0)"
+    - Mapbox-iOS-SDK (~> 5.8.0)
+    - React
+    - React-Core
+    - react-native-mapbox-gl/DynamicLibrary (= 8.1.0-rc.9)
+    - react-native-mapbox-gl/StaticLibraryFixer (= 8.1.0-rc.9)
+  - react-native-mapbox-gl/DynamicLibrary (8.1.0-rc.9):
+    - "@react-native-mapbox-gl-mapbox-static (~> 5.8.0)"
+    - Mapbox-iOS-SDK (~> 5.8.0)
+    - React
+    - React-Core
+  - react-native-mapbox-gl/StaticLibraryFixer (8.1.0-rc.9):
+    - "@react-native-mapbox-gl-mapbox-static (~> 5.8.0)"
+    - Mapbox-iOS-SDK (~> 5.8.0)
+    - React
+    - React-Core
+  - react-native-safe-area-context (3.1.9):
+    - React-Core
   - React-RCTActionSheet (0.63.3):
     - React-Core/RCTActionSheetHeaders (= 0.63.3)
   - React-RCTAnimation (0.63.3):
@@ -255,8 +278,18 @@ PODS:
     - React-Core (= 0.63.3)
     - React-cxxreact (= 0.63.3)
     - React-jsi (= 0.63.3)
+  - RNCMaskedView (0.1.10):
+    - React
+  - RNGestureHandler (1.8.0):
+    - React
   - RNPermissions (2.2.2):
     - React-Core
+  - RNReanimated (1.13.1):
+    - React
+  - RNScreens (2.14.0):
+    - React-Core
+  - RNVectorIcons (7.1.0):
+    - React
   - SpotSense (1.0.1):
     - Alamofire
     - JWTDecode
@@ -285,6 +318,8 @@ DEPENDENCIES:
   - React-jsi (from `../node_modules/react-native/ReactCommon/jsi`)
   - React-jsiexecutor (from `../node_modules/react-native/ReactCommon/jsiexecutor`)
   - React-jsinspector (from `../node_modules/react-native/ReactCommon/jsinspector`)
+  - "react-native-mapbox-gl (from `../node_modules/@react-native-mapbox-gl/maps`)"
+  - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
   - React-RCTActionSheet (from `../node_modules/react-native/Libraries/ActionSheetIOS`)
   - React-RCTAnimation (from `../node_modules/react-native/Libraries/NativeAnimation`)
   - React-RCTBlob (from `../node_modules/react-native/Libraries/Blob`)
@@ -295,15 +330,23 @@ DEPENDENCIES:
   - React-RCTText (from `../node_modules/react-native/Libraries/Text`)
   - React-RCTVibration (from `../node_modules/react-native/Libraries/Vibration`)
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
+  - "RNCMaskedView (from `../node_modules/@react-native-community/masked-view`)"
+  - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
   - RNPermissions (from `../node_modules/react-native-permissions`)
+  - RNReanimated (from `../node_modules/react-native-reanimated`)
+  - RNScreens (from `../node_modules/react-native-screens`)
+  - RNVectorIcons (from `../node_modules/react-native-vector-icons`)
   - SpotSense (from `https://github.com/spotsenseio/spotsenseSDK-ios.git`, commit `eec95b4`)
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
 SPEC REPOS:
   trunk:
+    - "@react-native-mapbox-gl-mapbox-static"
     - Alamofire
     - boost-for-react-native
     - JWTDecode
+    - Mapbox-iOS-SDK
+    - MapboxMobileEvents
 
 EXTERNAL SOURCES:
   DoubleConversion:
@@ -344,6 +387,10 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/jsiexecutor"
   React-jsinspector:
     :path: "../node_modules/react-native/ReactCommon/jsinspector"
+  react-native-mapbox-gl:
+    :path: "../node_modules/@react-native-mapbox-gl/maps"
+  react-native-safe-area-context:
+    :path: "../node_modules/react-native-safe-area-context"
   React-RCTActionSheet:
     :path: "../node_modules/react-native/Libraries/ActionSheetIOS"
   React-RCTAnimation:
@@ -364,8 +411,18 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/Libraries/Vibration"
   ReactCommon:
     :path: "../node_modules/react-native/ReactCommon"
+  RNCMaskedView:
+    :path: "../node_modules/@react-native-community/masked-view"
+  RNGestureHandler:
+    :path: "../node_modules/react-native-gesture-handler"
   RNPermissions:
     :path: "../node_modules/react-native-permissions"
+  RNReanimated:
+    :path: "../node_modules/react-native-reanimated"
+  RNScreens:
+    :path: "../node_modules/react-native-screens"
+  RNVectorIcons:
+    :path: "../node_modules/react-native-vector-icons"
   SpotSense:
     :commit: eec95b4
     :git: https://github.com/spotsenseio/spotsenseSDK-ios.git
@@ -378,6 +435,7 @@ CHECKOUT OPTIONS:
     :git: https://github.com/spotsenseio/spotsenseSDK-ios.git
 
 SPEC CHECKSUMS:
+  "@react-native-mapbox-gl-mapbox-static": e247172bc43f47757f47d6cec1b325b1ab3e9287
   Alamofire: df2f8f826963b08b9a870791ad48e07a10090b2e
   boost-for-react-native: 39c7adb57c4e60d6c5479dd8623128eb5b3f0f2c
   DoubleConversion: cde416483dac037923206447da6e1454df403714
@@ -386,6 +444,8 @@ SPEC CHECKSUMS:
   Folly: b73c3869541e86821df3c387eb0af5f65addfab4
   glog: 40a13f7840415b9a77023fbcae0f1e6f43192af3
   JWTDecode: d4c176a28a29f7e6f9abf5c90ad3002f69b98c7c
+  Mapbox-iOS-SDK: 02590a60fe300810c55432219a0caaa1338fbafb
+  MapboxMobileEvents: 2bc0ca2eedb627b73cf403258dce2b2fa98074a6
   Permission-BluetoothPeripheral: 2a5d2f9a9910c70fdbff58c41a67b19c9a1c322a
   Permission-LocationAlways: 265e9242ca29cce84f537381fe514f986aeabec2
   Permission-LocationWhenInUse: bed1bcdd4e98aa956e69f1e41281aa608930055e
@@ -400,6 +460,8 @@ SPEC CHECKSUMS:
   React-jsi: df07aa95b39c5be3e41199921509bfa929ed2b9d
   React-jsiexecutor: b56c03e61c0dd5f5801255f2160a815f4a53d451
   React-jsinspector: 8e68ffbfe23880d3ee9bafa8be2777f60b25cbe2
+  react-native-mapbox-gl: 2a4b1bbfb5708b4c997d312ad73337bafdc5baf5
+  react-native-safe-area-context: 86612d2c9a9e94e288319262d10b5f93f0b395f5
   React-RCTActionSheet: 53ea72699698b0b47a6421cb1c8b4ab215a774aa
   React-RCTAnimation: 1befece0b5183c22ae01b966f5583f42e69a83c2
   React-RCTBlob: 0b284339cbe4b15705a05e2313a51c6d8b51fa40
@@ -410,10 +472,15 @@ SPEC CHECKSUMS:
   React-RCTText: 65a6de06a7389098ce24340d1d3556015c38f746
   React-RCTVibration: 8e9fb25724a0805107fc1acc9075e26f814df454
   ReactCommon: 4167844018c9ed375cc01a843e9ee564399e53c3
+  RNCMaskedView: f5c7d14d6847b7b44853f7acb6284c1da30a3459
+  RNGestureHandler: 7a5833d0f788dbd107fbb913e09aa0c1ff333c39
   RNPermissions: 067727df624665d4a6c8e2cffcc172ba608b96ed
+  RNReanimated: dd8c286ab5dd4ba36d3a7fef8bff7e08711b5476
+  RNScreens: 2e278a90eb15092ed261d4f2271e3fc9b60d08d4
+  RNVectorIcons: bc69e6a278b14842063605de32bec61f0b251a59
   SpotSense: ac0dfc5de5b71902dd78be3827b080139f619e16
   Yoga: 7d13633d129fd179e01b8953d38d47be90db185a
 
-PODFILE CHECKSUM: 0cd48b26d339935e63abb79947ea5e3231e3b28a
+PODFILE CHECKSUM: 754fc7faabcaf38e83d7d9083c234b65117bf74d
 
 COCOAPODS: 1.10.0

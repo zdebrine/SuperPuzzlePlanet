@@ -7,32 +7,16 @@ import React, { useEffect, useState } from 'react';
 import { createStackNavigator } from '@react-navigation/stack'; */
 import {
   Platform,
-  SafeAreaView,
-  StyleSheet,
-  ScrollView,
-  View,
   Text,
   StatusBar,
-  TouchableOpacity,
-  NativeModules,
-  Image,
-  ImageBackground,
 } from 'react-native';
-
-import {
-  Header,
-  LearnMoreLinks,
-  Colors,
-  DebugInstructions,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
 
 import { PERMISSIONS, request } from 'react-native-permissions';
 
 import Onboarding from './screens/Onboarding.js';
 import Home from './screens/Home.js';
 
-const { Connect } = NativeModules;
+// const { Connect } = NativeModules;
 
 const App: () => React$Node = () => {
 

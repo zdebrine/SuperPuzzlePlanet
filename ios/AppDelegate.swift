@@ -88,12 +88,4 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     
     return true
   }
-  func goNativeStoryboard() {
-      DispatchQueue.main.async {
-        let vc = UIStoryboard(name: "LocationPermissions", bundle: nil).instantiateInitialViewController()
-        if let vc = vc {
-          (self.window?.rootViewController as? UINavigationController)?.pushViewController(vc, animated: true)
-        }
-      }
-    }
 }
