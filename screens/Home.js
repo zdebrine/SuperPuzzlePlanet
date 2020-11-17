@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
+import { Card, Input, Block, Button } from 'galio-framework';
+
 import MapboxGL from "@react-native-mapbox-gl/maps";
+
+import Puzzle from '../components/Puzzle.js';
 
 MapboxGL.setAccessToken(
   'pk.eyJ1IjoiemRlYnJpbmUiLCJhIjoiY2l5czc3ZTJpMDAwOTMzbGZpYmVkaHRtcyJ9.xh51OlwX5gd23KemtpOReg'
@@ -25,8 +29,14 @@ const styles = StyleSheet.create({
   },
   overlay: {
     position: 'absolute',
-    bottom: 50,
-    backgroundColor: 'rgba(255, 255, 255, 1)',
+    alignItems: "center",
+    justifyContent: "center",
+    padding: 20,
+    width: '100%',
+    height: '60%',
+    bottom: 280,
+    right: 0,
+    backgroundColor: '#000000',
   },
   touchableContainer: { borderColor: 'black', borderWidth: 1.0, width: 60 },
   touchable: {
@@ -41,16 +51,22 @@ const styles = StyleSheet.create({
     color: 'white',
     fontWeight: 'bold',
   },
+  sectionTitle: {
+    fontSize: 26,
+    fontWeight: '600',
+    color: 'white',
+  },
+  sectionBody: {
+    fontSize: 26,
+    fontWeight: '600',
+    color: 'white',
+    marginBottom: 50,
+    marginTop: 50,
+  },
+  submitButton: {
+    marginTop: 20,
+  },
 });
-
-const AnnotationContent = ({ title }) => (
-  <View style={styles.touchableContainer}>
-    <Text>{title}</Text>
-    <TouchableOpacity style={styles.touchable}>
-      <Text style={styles.touchableText}>Btn</Text>
-    </TouchableOpacity>
-  </View>
-);
 
 const Home = () => {
 
@@ -59,20 +75,29 @@ const Home = () => {
     [-73.99155, 40.73681],
   ]);
 
-  const [puzzle, setPuzzle] = useState('None');
+  const [puzzle, setPuzzle] = useState(null);
 
   const onUserMarkerPress = (): void => {
     Alert.alert('You pressed on the user location annotation');
   };
 
-  const createPuzzle = (): void => {
-    setPuzzle('Puzzle 1');
+  const createPuzzle = (e): void => {
+    setPuzzle(e.geometry.coordinates);
   };
+
+  const openPuzzle = (e): void => {
+    setPuzzle(e.geometry.coordinates);
+  };
+
+  const closeModal = (): void => {
+    setPuzzle(null);
+  }
 
   return (
     <View style={styles.page}>
       <View style={styles.container}>
         <MapboxGL.MapView
+          onPress={puzzle === null ? createPuzzle : closeModal}
           style={styles.map}
           styleURL={styledMap}
         >
@@ -80,14 +105,16 @@ const Home = () => {
             followZoomLevel={15}
             followUserLocation
           />
-          <MapboxGL.UserLocation onPress={createPuzzle} />
+          <MapboxGL.UserLocation />
           <MapboxGL.MarkerView coordinate={coordinates[0]}>
-            <AnnotationContent title={'this is a marker view'} />
+            <MapboxGL.PointAnnotation coordinate={coordinates[0]} onPress={openPuzzle} />
           </MapboxGL.MarkerView>
         </MapboxGL.MapView>
-        <TouchableOpacity style={styles.overlay}>
-          <Text style={styles.text}>{puzzle}</Text>
-        </TouchableOpacity>
+        {puzzle !== null ? (
+          <Puzzle />
+        ) :
+          <Text> </Text>
+        }
       </View>
     </View>
   );
