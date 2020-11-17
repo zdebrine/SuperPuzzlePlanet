@@ -38,7 +38,7 @@ const Puzzle = () => {
             borderless
             style={styles.overlay}
         >
-            <Text style={styles.sectionTitle}>Zak's Puzzle</Text>
+            <Text style={styles.sectionTitle}>Iggy's Puzzle</Text>
             <Text style={styles.sectionBody}>I rest my legs and to the right, a plate of bronze is in my site. Founded here, you will see, the answer to fill you with glee</Text>
             <Input placeholder="Your answer" color={'grey'} style={{ borderColor: 'grey' }} placeholderTextColor={'grey'} />
             <Button style={styles.submitButton} color="primary">SUBMIT</Button>
