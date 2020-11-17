@@ -14,7 +14,7 @@ MapboxGL.setAccessToken(
 
 const styledMap = 'mapbox://styles/zdebrine/ckdv7d3c31vmq19mq8sxr7bv1';
 
-const ANNOTATION_SIZE = 45;
+const ANNOTATION_SIZE = 70;
 
 const styles = StyleSheet.create({
   page: {
@@ -33,10 +33,8 @@ const styles = StyleSheet.create({
   },
   annotationContainer: {
     alignItems: 'center',
-    backgroundColor: 'white',
     borderColor: 'rgba(0, 0, 0, 0.45)',
     borderRadius: ANNOTATION_SIZE / 2,
-    borderWidth: StyleSheet.hairlineWidth,
     height: ANNOTATION_SIZE,
     justifyContent: 'center',
     overflow: 'hidden',
@@ -62,7 +60,7 @@ const Home = () => {
   };
 
   const openPuzzle = (e): void => {
-    setPuzzle(true);
+    setPuzzle(e);
   };
 
   const closeModal = (): void => {
@@ -86,7 +84,7 @@ const Home = () => {
           />
           <MapboxGL.UserLocation />
           {UserPuzzles.map(userPuzzle => (
-            <TouchableOpacity onPress={openPuzzle}>
+            <TouchableOpacity onPress={() => { openPuzzle(userPuzzle) }} key={userPuzzle.key} name={userPuzzle}>
               <MapboxGL.PointAnnotation
                 id={'1'}
                 coordinate={userPuzzle.coordinates}
@@ -94,7 +92,7 @@ const Home = () => {
                 ref={(ref) => (this.annotationRef = ref)}>
                 <View style={styles.annotationContainer}>
                   <Image
-                    source={{ uri: 'https://reactnative.dev/img/tiny_logo.png' }}
+                    source={{ uri: 'https://i.ibb.co/GF4vb1m/5215003a6c51a05.png' }}
                     style={{ width: ANNOTATION_SIZE, height: ANNOTATION_SIZE }}
 
                   />
@@ -105,7 +103,7 @@ const Home = () => {
           ))}
         </MapboxGL.MapView>
         {puzzle !== null ? (
-          <Puzzle riddle='' title='' answer='' />
+          <Puzzle riddle={puzzle.riddle} title={puzzle.title} answer={puzzle.answer} />
         ) : puzzleCreator === true ? (
           <PuzzleCreator />
         ) :

@@ -34,10 +34,18 @@ const styles = StyleSheet.create({
 const Puzzle = ({ riddle, title, answer }) => {
 
     const [userInput, setUserInput] = useState(null);
+    const [correct, setCorrect] = useState(false);
 
-    const handleChange = (event) => {
-        console.log(event);
-        setUserInput(event.target.value);
+    const handleChange = (text) => {
+        setUserInput(text.toLowerCase());
+    };
+
+    const checkAnswer = () => {
+        if (userInput === answer.toLowerCase()) {
+            setCorrect(true);
+        } else {
+            setCorrect(false);
+        }
     }
 
     return (
@@ -48,8 +56,15 @@ const Puzzle = ({ riddle, title, answer }) => {
         >
             <Text style={styles.sectionTitle}>{title}</Text>
             <Text style={styles.sectionBody}>{riddle}</Text>
-            <Input placeholder="Your answer" color={'grey'} style={{ borderColor: 'grey' }} placeholderTextColor={'grey'} />
-            <Button style={styles.submitButton} color="primary">SUBMIT</Button>
+            {correct ? (
+                <Input onChangeText={(text) => { handleChange(text) }} placeholder="Your answer" color={'green'} style={{ borderColor: 'green' }} placeholderTextColor={'green'} />
+            )
+                :
+                (
+                    <Input onChangeText={(text) => { handleChange(text) }} placeholder="Your answer" color={'red'} style={{ borderColor: 'red' }} placeholderTextColor={'red'} />
+                )
+            }
+            <Button style={styles.submitButton} color="primary" onPress={checkAnswer}>SUBMIT</Button>
         </Card>
     );
 }
