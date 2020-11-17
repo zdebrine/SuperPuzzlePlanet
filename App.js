@@ -20,6 +20,8 @@ import Home from './screens/Home.js';
 
 const App: () => React$Node = () => {
 
+  const [character, setCharacter] = useState('detective')
+
   const [screen, setScreen] = useState('Onboarding');
 
   request(
@@ -49,7 +51,7 @@ const App: () => React$Node = () => {
     <>
       <StatusBar barStyle="light-content" />
       {screen === "Onboarding" ? (
-        <Onboarding setScreen={setScreen} />
+        <Onboarding setScreen={setScreen} setCharacter={setCharacter} />
       )
         : screen === "Home" ? (
           <Home />

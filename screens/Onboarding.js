@@ -24,49 +24,6 @@ import { PERMISSIONS, request } from 'react-native-permissions';
 
 const { Connect } = NativeModules;
 
-const Onboarding = ({ setScreen }) => {
-
-  request(
-    Platform.select({
-      android: PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION,
-      ios: PERMISSIONS.IOS.LOCATION_WHEN_IN_USE,
-    }),
-  );
-
-  request(
-    Platform.select({
-      android: PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION,
-      ios: PERMISSIONS.IOS.BLUETOOTH_PERIPHERAL,
-    }),
-  );
-
-  request(
-    Platform.select({
-      android: PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION,
-      ios: PERMISSIONS.IOS.LOCATION_ALWAYS,
-    }),
-  );
-
-  const image = { uri: "https://giphy.com/embed/xT8qBfjJhOmNPTVWU0" };
-
-  return (
-    <>
-      <ImageBackground source={{ uri: 'https://media.giphy.com/media/xT8qBfjJhOmNPTVWU0/giphy.gif' }} style={{ width: '100%', height: '100%' }}>
-        <View
-          automaticallyAdjustContentInsets={false}
-          contentInsetAdjustmentBehavior="automatic"
-          style={styles.container}>
-          <View style={styles.container} >
-            <Text style={styles.sectionTitle}>:Planet Mystery:</Text>
-            <Characters />
-            <Text style={styles.text} onPress={() => setScreen("Home")}>TAP TO PLAY</Text>
-          </View>
-        </View>
-      </ImageBackground>
-    </>
-  );
-};
-
 const styles = StyleSheet.create({
   scrollView: {
 
@@ -136,5 +93,48 @@ const styles = StyleSheet.create({
     textAlign: 'right',
   },
 });
+
+const Onboarding = ({ setScreen, setCharacter }) => {
+
+  request(
+    Platform.select({
+      android: PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION,
+      ios: PERMISSIONS.IOS.LOCATION_WHEN_IN_USE,
+    }),
+  );
+
+  request(
+    Platform.select({
+      android: PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION,
+      ios: PERMISSIONS.IOS.BLUETOOTH_PERIPHERAL,
+    }),
+  );
+
+  request(
+    Platform.select({
+      android: PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION,
+      ios: PERMISSIONS.IOS.LOCATION_ALWAYS,
+    }),
+  );
+
+  const image = { uri: "https://giphy.com/embed/xT8qBfjJhOmNPTVWU0" };
+
+  return (
+    <>
+      <ImageBackground source={{ uri: 'https://media.giphy.com/media/xT8qBfjJhOmNPTVWU0/giphy.gif' }} style={{ width: '100%', height: '100%' }}>
+        <View
+          automaticallyAdjustContentInsets={false}
+          contentInsetAdjustmentBehavior="automatic"
+          style={styles.container}>
+          <View style={styles.container} >
+            <Text style={styles.sectionTitle}>:Planet Mystery:</Text>
+            <Characters character={setCharacter} />
+            <Text style={styles.text} onPress={() => setScreen("Home")}>TAP TO PLAY</Text>
+          </View>
+        </View>
+      </ImageBackground>
+    </>
+  );
+};
 
 export default Onboarding;

@@ -6,6 +6,7 @@ import MapboxGL from "@react-native-mapbox-gl/maps";
 
 import Puzzle from '../components/Puzzle.js';
 import PuzzleCreator from '../components/PuzzleCreator.js';
+import UserPuzzles from '../components/UserPuzzles';
 
 MapboxGL.setAccessToken(
   'pk.eyJ1IjoiemRlYnJpbmUiLCJhIjoiY2l5czc3ZTJpMDAwOTMzbGZpYmVkaHRtcyJ9.xh51OlwX5gd23KemtpOReg'
@@ -45,11 +46,6 @@ const styles = StyleSheet.create({
 
 const Home = () => {
 
-  const [coordinates, setCoordinates] = useState([
-    [-105.082101, 39.922742],
-    [-73.99155, 40.73681],
-  ]);
-
   const [puzzle, setPuzzle] = useState(null);
   const [puzzleCreator, setPuzzleCreator] = useState(false);
 
@@ -74,6 +70,7 @@ const Home = () => {
     setPuzzleCreator(false);
   }
 
+
   return (
     <View style={styles.page}>
       <View style={styles.container}>
@@ -88,25 +85,27 @@ const Home = () => {
             followUserLocation
           />
           <MapboxGL.UserLocation />
-          <TouchableOpacity onPress={openPuzzle}>
-            <MapboxGL.PointAnnotation
-              id={'1'}
-              coordinate={coordinates[0]}
-              title={'title'}
-              ref={(ref) => (this.annotationRef = ref)}>
-              <View style={styles.annotationContainer}>
-                <Image
-                  source={{ uri: 'https://reactnative.dev/img/tiny_logo.png' }}
-                  style={{ width: ANNOTATION_SIZE, height: ANNOTATION_SIZE }}
+          {UserPuzzles.map(userPuzzle => (
+            <TouchableOpacity onPress={openPuzzle}>
+              <MapboxGL.PointAnnotation
+                id={'1'}
+                coordinate={userPuzzle.coordinates}
+                title={'title'}
+                ref={(ref) => (this.annotationRef = ref)}>
+                <View style={styles.annotationContainer}>
+                  <Image
+                    source={{ uri: 'https://reactnative.dev/img/tiny_logo.png' }}
+                    style={{ width: ANNOTATION_SIZE, height: ANNOTATION_SIZE }}
 
-                />
-              </View>
-              <MapboxGL.Callout title="This is a puzzle" />
-            </MapboxGL.PointAnnotation>
-          </TouchableOpacity>
+                  />
+                </View>
+                <MapboxGL.Callout title="This is a puzzle" />
+              </MapboxGL.PointAnnotation>
+            </TouchableOpacity>
+          ))}
         </MapboxGL.MapView>
         {puzzle !== null ? (
-          <Puzzle />
+          <Puzzle riddle='' title='' answer='' />
         ) : puzzleCreator === true ? (
           <PuzzleCreator />
         ) :

@@ -31,15 +31,23 @@ const styles = StyleSheet.create({
     },
 });
 
-const Puzzle = () => {
+const Puzzle = ({ riddle, title, answer }) => {
+
+    const [userInput, setUserInput] = useState(null);
+
+    const handleChange = (event) => {
+        console.log(event);
+        setUserInput(event.target.value);
+    }
+
     return (
         <Card
             flex
             borderless
             style={styles.overlay}
         >
-            <Text style={styles.sectionTitle}>Iggy's Puzzle</Text>
-            <Text style={styles.sectionBody}>I rest my legs and to the right, a plate of bronze is in my site. Founded here, you will see, the answer to fill you with glee</Text>
+            <Text style={styles.sectionTitle}>{title}</Text>
+            <Text style={styles.sectionBody}>{riddle}</Text>
             <Input placeholder="Your answer" color={'grey'} style={{ borderColor: 'grey' }} placeholderTextColor={'grey'} />
             <Button style={styles.submitButton} color="primary">SUBMIT</Button>
         </Card>
