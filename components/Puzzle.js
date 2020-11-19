@@ -42,7 +42,9 @@ const styles = StyleSheet.create({
     },
 });
 
-const Puzzle = ({ riddle, title, answer, close, setCorrect, correct }) => {
+const Puzzle = ({ riddle, title, answer, close, id, setCorrect, correct }) => {
+
+    console.log(correct);
 
     const [userInput, setUserInput] = useState(null);
 
@@ -52,10 +54,8 @@ const Puzzle = ({ riddle, title, answer, close, setCorrect, correct }) => {
 
     const checkAnswer = () => {
         if (userInput === answer.toLowerCase()) {
-            setCorrect(true);
+            correct.push(id);
             close();
-        } else {
-            setCorrect(false);
         }
     }
 
@@ -71,7 +71,7 @@ const Puzzle = ({ riddle, title, answer, close, setCorrect, correct }) => {
                 <Text style={styles.sectionTitle}>{title}</Text>
             </TouchableWithoutFeedback>
             <Text style={styles.sectionBody}>{riddle}</Text>
-            {correct ? (
+            {correct.includes(id) ? (
                 <Input disabled onChangeText={(text) => { handleChange(text) }} placeholder="SOLVED" color={'green'} style={{ borderColor: 'green' }} placeholderTextColor={'green'} />
             )
                 :

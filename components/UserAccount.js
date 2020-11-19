@@ -57,7 +57,7 @@ const UserAccount = ({ close }) => {
                 console.log(error)
             }
         })();
-    }, [])
+    }, []);
 
     const _saveUser = async () => {
         try {

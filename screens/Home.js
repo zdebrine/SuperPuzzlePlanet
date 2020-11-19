@@ -1,21 +1,20 @@
 import React, { useEffect, useState } from 'react';
-import { View, StyleSheet, Text, TouchableOpacity, Image } from 'react-native';
+import { View, StyleSheet, Text, TouchableOpacity, Image, AsyncStorage } from 'react-native';
 import { Card, Input, Block, Button, NavBar } from 'galio-framework';
 
 import MapboxGL from "@react-native-mapbox-gl/maps";
 
 import Puzzle from '../components/Puzzle.js';
-import PuzzleCreator from '../components/PuzzleCreator.js';
+import PuzzleCreator from '../components/PuzzleCreator';
 import UserAccount from '../components/UserAccount';
 import UserPuzzles from '../components/UserPuzzles';
+import Marker from '../components/Marker';
 
 MapboxGL.setAccessToken(
   'pk.eyJ1IjoiemRlYnJpbmUiLCJhIjoiY2l5czc3ZTJpMDAwOTMzbGZpYmVkaHRtcyJ9.xh51OlwX5gd23KemtpOReg'
 );
 
 const styledMap = 'mapbox://styles/zdebrine/ckdv7d3c31vmq19mq8sxr7bv1';
-
-const ANNOTATION_SIZE = 70;
 
 const styles = StyleSheet.create({
   page: {
@@ -37,15 +36,6 @@ const styles = StyleSheet.create({
   map: {
     flex: 1
   },
-  annotationContainer: {
-    alignItems: 'center',
-    borderColor: 'rgba(0, 0, 0, 0.45)',
-    borderRadius: ANNOTATION_SIZE / 2,
-    height: ANNOTATION_SIZE,
-    justifyContent: 'center',
-    overflow: 'hidden',
-    width: ANNOTATION_SIZE,
-  },
   close: {
     position: 'absolute',
     alignItems: "center",
@@ -64,7 +54,7 @@ const Home = () => {
   const [puzzle, setPuzzle] = useState(null);
   const [puzzleCreator, setPuzzleCreator] = useState(false);
   const [accountView, setAccountView] = useState(true);
-  const [correct, setCorrect] = useState(false);
+  const [correct, setCorrect] = useState([]);
 
   const onUserMarkerPress = (): void => {
     Alert.alert('You pressed on the user location annotation');
@@ -76,10 +66,6 @@ const Home = () => {
 
   const openPuzzleCreator = (e): void => {
     setPuzzleCreator(true);
-  };
-
-  const openPuzzle = (e): void => {
-    setPuzzle(e);
   };
 
   const closeModal = (): void => {
@@ -114,26 +100,13 @@ const Home = () => {
           />
           <MapboxGL.UserLocation onPress={openAccount} />
           {UserPuzzles.map(userPuzzle => (
-            <TouchableOpacity onPress={() => { openPuzzle(userPuzzle) }} key={Math.random()} name={userPuzzle}>
-              <MapboxGL.PointAnnotation
-                id={'1'}
-                coordinate={userPuzzle.coordinates}
-                title={'title'}
-                ref={(ref) => (this.annotationRef = ref)}>
-                <View style={styles.annotationContainer}>
-                  <Image
-                    source={{ uri: 'https://i.ibb.co/GF4vb1m/5215003a6c51a05.png' }}
-                    style={{ width: ANNOTATION_SIZE, height: ANNOTATION_SIZE }}
-                  />
-                </View>
-                <MapboxGL.Callout title="This is a puzzle" />
-              </MapboxGL.PointAnnotation>
-            </TouchableOpacity>
+            <Marker correct={correct} userPuzzle={userPuzzle} setPuzzle={setPuzzle} />
           ))}
         </MapboxGL.MapView>
         {puzzle !== null ? (
           <>
             <Puzzle
+              id={puzzle.id}
               riddle={puzzle.riddle}
               title={puzzle.title}
               answer={puzzle.answer}
