@@ -90,7 +90,6 @@ const Home = () => {
 
   const openAccount = (): void => {
     setAccountView(true);
-    console.log(puzzle, puzzleCreator, accountView);
   }
 
   return (

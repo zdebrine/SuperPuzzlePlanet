@@ -42,10 +42,7 @@ const styles = StyleSheet.create({
     },
 });
 
-const UserAccount = ({ riddle, title, answer, close }) => {
-
-    const [userInput, setUserInput] = useState(null);
-    const [correct, setCorrect] = useState(false);
+const UserAccount = ({ close }) => {
     const [username, setUsername] = useState('wormy');
 
     useEffect(() => {
@@ -62,20 +59,20 @@ const UserAccount = ({ riddle, title, answer, close }) => {
         })();
     }, [])
 
-    const handleChange = (text) => {
-        setUsername(text);
-    };
-
     const _saveUser = async () => {
         try {
             await AsyncStorage.setItem('username', `${username}`);
+            close();
         } catch (error) {
             console.log(error)
             // Error saving data
         }
     }
 
-    const puzzles = [
+    const handleChange = (text) => {
+        setUsername(text);
+    };
+    const account = [
         <Card
             flex
             borderless
@@ -98,7 +95,7 @@ const UserAccount = ({ riddle, title, answer, close }) => {
     return (
         <DeckSwiper
             style={styles.swiper}
-            components={puzzles}
+            components={account}
             // nextElementStyle={styles.nextElement}
             onSwipeLeft={close}
             onSwipeRight={close}
