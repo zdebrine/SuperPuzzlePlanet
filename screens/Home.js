@@ -115,13 +115,27 @@ const Home = () => {
           style={styles.map}
           styleURL={styledMap}
         >
-          <TouchableOpacity onPress={openAccount}>
-            <NavBar left={<Image
-              source={{ uri: 'https://i.ibb.co/XLGmZrt/star.png' }}
-              style={{ width: 40, height: 40, marginTop: 70 }}
-            />}
-              transparent={true} />
-          </TouchableOpacity>
+          <NavBar left={
+            <>
+              <TouchableOpacity onPress={openAccount}>
+                <Image
+                  source={{ uri: 'https://i.ibb.co/1mCS6GS/settings.png' }}
+                  style={{ width: 40, height: 40, marginTop: 70 }}
+                />
+              </TouchableOpacity>
+            </>
+          }
+            title={
+              <>
+                <TouchableOpacity onPress={openAccount}>
+                  <Image
+                    source={{ uri: 'https://i.ibb.co/LZx43xX/star.png' }}
+                    style={{ width: 40, height: 40, marginTop: 70 }}
+                  />
+                </TouchableOpacity>
+              </>
+            }
+            transparent={true} />
           <MapboxGL.Camera
             followZoomLevel={zoomLevel}
             followUserLocation
