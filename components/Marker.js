@@ -46,7 +46,7 @@ const Marker = ({ userPuzzle, correct, setPuzzle }) => {
                             />
                     }
                 </View>
-                <MapboxGL.Callout title="This is a puzzle" />
+                <MapboxGL.Callout title={`${userPuzzle.title}`} />
             </MapboxGL.PointAnnotation>
         </TouchableOpacity>
     )

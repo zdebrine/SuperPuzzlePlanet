@@ -44,8 +44,6 @@ const styles = StyleSheet.create({
 
 const Puzzle = ({ riddle, title, answer, close, id, setCorrect, correct }) => {
 
-    console.log(correct);
-
     const [userInput, setUserInput] = useState(null);
 
     const handleChange = (text) => {

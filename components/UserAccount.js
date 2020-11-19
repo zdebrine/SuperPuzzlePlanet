@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
     },
 });
 
-const UserAccount = ({ close }) => {
+const UserAccount = ({ close, numberSolved }) => {
     const [username, setUsername] = useState('wormy');
 
     useEffect(() => {
@@ -84,7 +84,7 @@ const UserAccount = ({ close }) => {
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
                 <Text style={styles.sectionTitle}>Hi, {username}</Text>
             </TouchableWithoutFeedback>
-            <Text style={styles.sectionBody}>Puzzles Solved: 15</Text>
+            <Text style={styles.sectionBody}>Puzzles Solved: {numberSolved}</Text>
             <Text style={styles.sectionBody}>Change Name</Text>
             <Input onChangeText={(text) => { handleChange(text) }} placeholder={username} color={'green'} style={{ borderColor: 'green' }} placeholderTextColor={'green'} />
             <Button style={styles.submitButton} color="primary" onPress={_saveUser}>SUBMIT</Button>

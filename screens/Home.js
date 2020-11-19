@@ -56,6 +56,34 @@ const Home = () => {
   const [accountView, setAccountView] = useState(true);
   const [correct, setCorrect] = useState([]);
 
+  useEffect(() => {
+    console.log('Getting solved puzzles');
+    (async () => {
+      try {
+        const value = await AsyncStorage.getItem('solvedPuzzles');
+        if (value !== null) {
+          let solvedArray = []
+          value.split(',').forEach(num => solvedArray.push(Number(num)));
+          setCorrect(solvedArray);
+        }
+      } catch (error) {
+        // Error retrieving data
+        console.log(error)
+      }
+    })();
+  }, []);
+
+  useEffect(() => {
+    (async () => {
+      try {
+        await AsyncStorage.setItem('solvedPuzzles', `${correct}`);
+      } catch (error) {
+        console.log(error)
+        // Error saving data
+      }
+    })();
+  }, [correct]);
+
   const onUserMarkerPress = (): void => {
     Alert.alert('You pressed on the user location annotation');
   };
@@ -120,7 +148,7 @@ const Home = () => {
           </>
         ) : accountView !== null ? (
           <>
-            <UserAccount close={closeModal} />
+            <UserAccount close={closeModal} numberSolved={correct.length} />
           </>
         ) :
               <Text> </Text>

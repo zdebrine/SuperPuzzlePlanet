@@ -11,7 +11,7 @@ const UserPuzzles = [
         id: 2,
         coordinates: [-73.99155, 40.73681],
         title: 'Reggie\'s Puzzle',
-        riddle: 'King Kong, King Kong, Why can\'t we just get along? on the west is Where I am, closer to the mini van',
+        riddle: 'King Kong, King Kong, Why can\'t we just get along? to the west is where I am, closer to the mini van',
         answer: 'Banana',
         creator: 'Reginald',
     }
