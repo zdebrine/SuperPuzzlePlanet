@@ -1,18 +1,27 @@
 import React, { useEffect, useState } from 'react';
-import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
-import { Card, Input, Block, Button } from 'galio-framework';
+import { View, StyleSheet, Text, TouchableOpacity, TouchableWithoutFeedback, Keyboard } from 'react-native';
+import { Card, Input, Block, Button, DeckSwiper } from 'galio-framework';
 
 const styles = StyleSheet.create({
     overlay: {
         position: 'absolute',
-        alignItems: "center",
-        justifyContent: "center",
-        padding: 20,
+        marginBottom: 30,
+        marginTop: 30,
+        padding: 40,
         width: '100%',
-        height: '70%',
-        bottom: 200,
+        height: '100%',
+        bottom: 0,
         right: 0,
         backgroundColor: '#000000',
+    },
+    swiper: {
+        position: 'absolute',
+        marginTop: 30,
+        padding: 40,
+        width: '100%',
+        height: '100%',
+        bottom: 0,
+        right: 0,
     },
     sectionTitle: {
         fontSize: 26,
@@ -31,25 +40,51 @@ const styles = StyleSheet.create({
         marginTop: 20,
         borderColor: 'grey',
     },
+    riddleBody: {
+        height: 100,
+        marginBottom: 20,
+        marginTop: 20,
+        borderColor: 'grey',
+    },
     submitButton: {
         marginTop: 50,
-        marginBottom: 50,
+        marginBottom: 150,
     },
 });
 
-const PuzzleCreator = () => {
-    return (
+const PuzzleCreator = ({ close }) => {
+
+    const creator = [
         <Card
             flex
             borderless
             style={styles.overlay}
         >
-            <Text style={styles.sectionTitle}>New Puzzle</Text>
+            <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+                <Text style={styles.sectionTitle}>New Puzzle</Text>
+            </TouchableWithoutFeedback>
             <Input placeholder="Puzzle name" color={'grey'} style={styles.inputBody} placeholderTextColor={'grey'} />
-            <Input placeholder="Riddle" color={'grey'} style={styles.inputBody} placeholderTextColor={'grey'} />
+            <Input
+                multiline
+                placeholder="Riddle"
+                color={'grey'}
+                style={styles.riddleBody}
+                placeholderTextColor={'grey'}
+                maxLength={270}
+            />
             <Input placeholder="Answer" color={'grey'} style={styles.inputBody} placeholderTextColor={'grey'} />
             <Button style={styles.submitButton} color="primary">SUBMIT</Button>
         </Card>
+    ];
+
+    return (
+        <DeckSwiper
+            style={styles.swiper}
+            components={creator}
+            // nextElementStyle={styles.nextElement}
+            onSwipeLeft={close}
+            onSwipeRight={close}
+        />
     );
 }
 export default PuzzleCreator;

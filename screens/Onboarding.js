@@ -70,6 +70,7 @@ const styles = StyleSheet.create({
   },
   sectionTitle: {
     fontSize: 48,
+    fontFamily: 'GillSans-UltraBold',
     fontWeight: '600',
     color: Colors.white,
     marginBottom: 75,
@@ -127,7 +128,7 @@ const Onboarding = ({ setScreen, setCharacter }) => {
           contentInsetAdjustmentBehavior="automatic"
           style={styles.container}>
           <View style={styles.container} >
-            <Text style={styles.sectionTitle}>:Planet Mystery:</Text>
+            <Text style={styles.sectionTitle}>Planet Mystery</Text>
             <Characters character={setCharacter} />
             <Text style={styles.text} onPress={() => setScreen("Home")}>TAP TO PLAY</Text>
           </View>

@@ -48,7 +48,7 @@ const elements = [
         id='earlybird'
         style={styles.logo}
         source={{
-            uri: 'https://i.ibb.co/Np4MTR2/Group-11.png',
+            uri: 'https://i.ibb.co/zJxzSK2/image.png',
         }}
     />,
     <Image
@@ -76,7 +76,7 @@ const elements = [
         id='earlybird'
         style={styles.logo}
         source={{
-            uri: 'https://i.ibb.co/Np4MTR2/Group-11.png',
+            uri: 'https://i.ibb.co/zJxzSK2/image.png',
         }}
     />,
     <Image
@@ -104,7 +104,7 @@ const elements = [
         id='earlybird'
         style={styles.logo}
         source={{
-            uri: 'https://i.ibb.co/Np4MTR2/Group-11.png',
+            uri: 'https://i.ibb.co/zJxzSK2/image.png',
         }}
     />,
     <Image
@@ -132,7 +132,7 @@ const elements = [
         id='earlybird'
         style={styles.logo}
         source={{
-            uri: 'https://i.ibb.co/Np4MTR2/Group-11.png',
+            uri: 'https://i.ibb.co/zJxzSK2/image.png',
         }}
     />,
 
@@ -150,7 +150,7 @@ const Characters = ({ setCharacter }) => {
             components={elements}
             nextElementStyle={styles.nextElement}
             onSwipeLeft={characterSelect}
-            onSwipeRight={characterSelect}
+            onSwipeRight={() => characterSelect(this)}
         />
     );
 };

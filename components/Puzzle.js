@@ -1,40 +1,49 @@
 import React, { useEffect, useState } from 'react';
-import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
-import { Card, Input, Block, Button } from 'galio-framework';
+import { View, StyleSheet, Text, TouchableOpacity, Keyboard, TouchableWithoutFeedback } from 'react-native';
+import { Card, Input, Block, Button, DeckSwiper } from 'galio-framework';
 
 const styles = StyleSheet.create({
     overlay: {
         position: 'absolute',
-        alignItems: "center",
-        justifyContent: "center",
-        padding: 20,
+        marginBottom: 30,
+        marginTop: 30,
+        padding: 40,
         width: '100%',
-        height: '60%',
-        bottom: 280,
+        height: '100%',
+        bottom: 0,
         right: 0,
         backgroundColor: '#000000',
+    },
+    swiper: {
+        position: 'absolute',
+        marginTop: 30,
+        padding: 40,
+        width: '100%',
+        height: '100%',
+        bottom: 0,
+        right: 0,
     },
     sectionTitle: {
         fontSize: 26,
         fontWeight: '600',
         color: 'white',
+        marginBottom: 50,
     },
     sectionBody: {
-        fontSize: 26,
+        fontSize: 16,
         fontWeight: '600',
         color: 'white',
-        marginBottom: 50,
-        marginTop: 50,
+        marginBottom: 20,
     },
     submitButton: {
-        marginTop: 20,
+        marginTop: 30,
+        marginBottom: 100,
     },
 });
 
-const Puzzle = ({ riddle, title, answer }) => {
+const Puzzle = ({ riddle, title, answer, close, setCorrect, correct }) => {
 
     const [userInput, setUserInput] = useState(null);
-    const [correct, setCorrect] = useState(false);
 
     const handleChange = (text) => {
         setUserInput(text.toLowerCase());
@@ -43,21 +52,26 @@ const Puzzle = ({ riddle, title, answer }) => {
     const checkAnswer = () => {
         if (userInput === answer.toLowerCase()) {
             setCorrect(true);
+            close();
         } else {
             setCorrect(false);
         }
     }
 
-    return (
+    const puzzles = [
         <Card
             flex
             borderless
             style={styles.overlay}
+            imageBlockStyle={{ marginTop: 50 }}
+            image="https://i.ibb.co/nwmR5Vg/dino.png"
         >
-            <Text style={styles.sectionTitle}>{title}</Text>
+            <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+                <Text style={styles.sectionTitle}>{title}</Text>
+            </TouchableWithoutFeedback>
             <Text style={styles.sectionBody}>{riddle}</Text>
             {correct ? (
-                <Input onChangeText={(text) => { handleChange(text) }} placeholder="Your answer" color={'green'} style={{ borderColor: 'green' }} placeholderTextColor={'green'} />
+                <Input disabled onChangeText={(text) => { handleChange(text) }} placeholder="SOLVED" color={'green'} style={{ borderColor: 'green' }} placeholderTextColor={'green'} />
             )
                 :
                 (
@@ -66,6 +80,17 @@ const Puzzle = ({ riddle, title, answer }) => {
             }
             <Button style={styles.submitButton} color="primary" onPress={checkAnswer}>SUBMIT</Button>
         </Card>
+
+    ];
+
+    return (
+        <DeckSwiper
+            style={styles.swiper}
+            components={puzzles}
+            // nextElementStyle={styles.nextElement}
+            onSwipeLeft={close}
+            onSwipeRight={close}
+        />
     );
 }
 export default Puzzle;
