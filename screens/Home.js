@@ -9,6 +9,7 @@ import PuzzleCreator from '../components/PuzzleCreator';
 import UserAccount from '../components/UserAccount';
 import UserPuzzles from '../components/UserPuzzles';
 import Marker from '../components/Marker';
+import Rewards from '../components/Rewards';
 
 MapboxGL.setAccessToken(
   'pk.eyJ1IjoiemRlYnJpbmUiLCJhIjoiY2l5czc3ZTJpMDAwOTMzbGZpYmVkaHRtcyJ9.xh51OlwX5gd23KemtpOReg'
@@ -54,14 +55,16 @@ const Home = () => {
   const [puzzle, setPuzzle] = useState(null);
   const [puzzleCreator, setPuzzleCreator] = useState(false);
   const [accountView, setAccountView] = useState(true);
+  const [rewardView, setRewardView] = useState(false);
   const [correct, setCorrect] = useState([]);
 
   useEffect(() => {
-    console.log('Getting solved puzzlez');
+    console.log('Getting solved puzzles');
     (async () => {
       try {
         const value = await AsyncStorage.getItem('solvedPuzzles');
         if (value !== null) {
+          console.log(value);
           let solvedArray = []
           value.split(',').forEach(num => solvedArray.push(Number(num)));
           setCorrect(solvedArray);
@@ -82,7 +85,7 @@ const Home = () => {
         // Error saving data
       }
     })();
-  }, [correct]);
+  }, [setCorrect]);
 
   const onUserMarkerPress = (): void => {
     Alert.alert('You pressed on the user location annotation');
@@ -100,10 +103,15 @@ const Home = () => {
     setPuzzle(null);
     setPuzzleCreator(false);
     setAccountView(null);
+    setRewardView(false);
   }
 
   const openAccount = (): void => {
     setAccountView(true);
+  }
+
+  const openRewards = (): void => {
+    setRewardView(true);
   }
 
   return (
@@ -127,7 +135,7 @@ const Home = () => {
           }
             title={
               <>
-                <TouchableOpacity onPress={openAccount}>
+                <TouchableOpacity onPress={openRewards}>
                   <Image
                     source={{ uri: 'https://i.ibb.co/LZx43xX/star.png' }}
                     style={{ width: 40, height: 40, marginTop: 70 }}
@@ -164,8 +172,12 @@ const Home = () => {
           <>
             <UserAccount close={closeModal} numberSolved={correct.length} />
           </>
+        ) : rewardView !== false ? (
+          <>
+            <Rewards close={closeModal} numberSolved={correct.length} />
+          </>
         ) :
-              <Text> </Text>
+                <Text> </Text>
         }
       </View>
     </View>

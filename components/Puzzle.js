@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, StyleSheet, Text, TouchableOpacity, Keyboard, TouchableWithoutFeedback } from 'react-native';
+import { View, StyleSheet, Text, TouchableOpacity, Keyboard, TouchableWithoutFeedback, AsyncStorage } from 'react-native';
 import { Card, Input, Block, Button, DeckSwiper } from 'galio-framework';
 
 const styles = StyleSheet.create({
@@ -53,6 +53,15 @@ const Puzzle = ({ riddle, title, answer, close, id, setCorrect, correct }) => {
     const checkAnswer = () => {
         if (userInput === answer.toLowerCase()) {
             correct.push(id);
+            console.log(correct);
+            (async () => {
+                try {
+                    await AsyncStorage.setItem('solvedPuzzles', `${correct}`);
+                } catch (error) {
+                    console.log(error)
+                    // Error saving data
+                }
+            })();
             close();
         }
     }
