@@ -42,7 +42,9 @@ const styles = StyleSheet.create({
     },
 });
 
-const Puzzle = ({ riddle, title, answer, close, id, setCorrect, correct }) => {
+const Puzzle = ({ riddle, title, answer, close, id, setCorrect, correct, _savePuzzles }) => {
+
+    console.log(correct)
 
     const [userInput, setUserInput] = useState(null);
 
@@ -52,16 +54,9 @@ const Puzzle = ({ riddle, title, answer, close, id, setCorrect, correct }) => {
 
     const checkAnswer = () => {
         if (userInput === answer.toLowerCase()) {
-            correct.push(id);
             console.log(correct);
-            (async () => {
-                try {
-                    await AsyncStorage.setItem('solvedPuzzles', `${correct}`);
-                } catch (error) {
-                    console.log(error)
-                    // Error saving data
-                }
-            })();
+            correct.push(id);
+            _savePuzzles(correct);
             close();
         }
     }

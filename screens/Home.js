@@ -54,7 +54,7 @@ const Home = () => {
   const [zoomLevel, setZoomLevel] = useState(15);
   const [puzzle, setPuzzle] = useState(null);
   const [puzzleCreator, setPuzzleCreator] = useState(false);
-  const [accountView, setAccountView] = useState(true);
+  const [accountView, setAccountView] = useState(null);
   const [rewardView, setRewardView] = useState(false);
   const [correct, setCorrect] = useState([]);
 
@@ -76,16 +76,15 @@ const Home = () => {
     })();
   }, []);
 
-  useEffect(() => {
-    (async () => {
-      try {
-        await AsyncStorage.setItem('solvedPuzzles', `${correct}`);
-      } catch (error) {
-        console.log(error)
-        // Error saving data
-      }
-    })();
-  }, [setCorrect]);
+  const _savePuzzles = async (solved) => {
+    console.log(solved);
+    try {
+      await AsyncStorage.setItem('solvedPuzzles', `${solved}`);
+    } catch (error) {
+      console.log(error)
+      // Error saving data
+    }
+  }
 
   const onUserMarkerPress = (): void => {
     Alert.alert('You pressed on the user location annotation');
@@ -162,7 +161,9 @@ const Home = () => {
               answer={puzzle.answer}
               close={closeModal}
               setCorrect={setCorrect}
-              correct={correct} />
+              correct={correct}
+              _savePuzzles={_savePuzzles}
+            />
           </>
         ) : puzzleCreator === true ? (
           <>
