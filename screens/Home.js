@@ -57,7 +57,7 @@ const Home = () => {
   const [correct, setCorrect] = useState([]);
 
   useEffect(() => {
-    console.log('Getting solved puzzles');
+    console.log('Getting solved puzzlez');
     (async () => {
       try {
         const value = await AsyncStorage.getItem('solvedPuzzles');
