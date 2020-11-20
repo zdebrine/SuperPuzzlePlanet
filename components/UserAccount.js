@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { View, StyleSheet, Text, TouchableOpacity, Keyboard, TouchableWithoutFeedback, AsyncStorage } from 'react-native';
+import { View, StyleSheet, Text, TouchableOpacity, Keyboard, TouchableWithoutFeedback, AsyncStorage, ScrollView, Image } from 'react-native';
 import { Card, Input, Block, Button, DeckSwiper } from 'galio-framework';
 
 const styles = StyleSheet.create({
     overlay: {
         position: 'absolute',
-        marginBottom: 30,
-        marginTop: 30,
+        paddingTop: 100,
+        paddingBottom: 30,
         padding: 40,
         width: '100%',
         height: '100%',
@@ -14,6 +14,13 @@ const styles = StyleSheet.create({
         right: 0,
         backgroundColor: '#000000',
         opacity: 0.9,
+    },
+    character: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: '50%',
+        height: '40%',
+        marginBottom: 20,
     },
     swiper: {
         position: 'absolute',
@@ -40,9 +47,14 @@ const styles = StyleSheet.create({
         marginTop: 30,
         marginBottom: 100,
     },
+    exit: {
+        marginTop: -40,
+        marginBottom: 10,
+        left: 300,
+    },
 });
 
-const UserAccount = ({ close, numberSolved }) => {
+const UserAccount = ({ close, numberSolved, character }) => {
     const [username, setUsername] = useState('wormy');
 
     useEffect(() => {
@@ -72,15 +84,21 @@ const UserAccount = ({ close, numberSolved }) => {
     const handleChange = (text) => {
         setUsername(text);
     };
-    const account = [
-        <Card
-            flex
-            borderless
-            style={styles.overlay}
-            imageBlockStyle={{ marginTop: 50 }}
-            imageStyle={{ paddingTop: 50, marginTop: 80, height: 110, width: 100 }}
-            image="https://i.ibb.co/zJxzSK2/image.png"
-        >
+
+    return (
+        <ScrollView style={styles.overlay}>
+            <TouchableOpacity style={styles.exit} onPress={close}>
+                <Text style={styles.sectionBody}>
+                    x
+                </Text>
+            </TouchableOpacity>
+            <Image
+                id='dino'
+                style={styles.character}
+                source={{
+                    uri: `${character}`,
+                }}
+            />
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
                 <Text style={styles.sectionTitle}>Hi, {username}</Text>
             </TouchableWithoutFeedback>
@@ -88,18 +106,7 @@ const UserAccount = ({ close, numberSolved }) => {
             <Text style={styles.sectionBody}>Change Name</Text>
             <Input onChangeText={(text) => { handleChange(text) }} placeholder={username} color={'green'} style={{ borderColor: 'green' }} placeholderTextColor={'green'} />
             <Button style={styles.submitButton} color="primary" onPress={_saveUser}>SUBMIT</Button>
-        </Card>
-
-    ];
-
-    return (
-        <DeckSwiper
-            style={styles.swiper}
-            components={account}
-            // nextElementStyle={styles.nextElement}
-            onSwipeLeft={close}
-            onSwipeRight={close}
-        />
+        </ScrollView>
     );
 }
 export default UserAccount;

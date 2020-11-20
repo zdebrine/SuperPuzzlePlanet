@@ -16,6 +16,8 @@ MapboxGL.setAccessToken(
   'pk.eyJ1IjoiemRlYnJpbmUiLCJhIjoiY2l5czc3ZTJpMDAwOTMzbGZpYmVkaHRtcyJ9.xh51OlwX5gd23KemtpOReg'
 );
 
+const characterImage = 'https://i.ibb.co/ckG4Vmb/Group-7.png';
+
 const styledMap = 'mapbox://styles/zdebrine/ckdv7d3c31vmq19mq8sxr7bv1';
 
 const styles = StyleSheet.create({
@@ -53,6 +55,8 @@ const styles = StyleSheet.create({
 const Home = () => {
 
   const [zoomLevel, setZoomLevel] = useState(15);
+  const [character, setCharacter] = useState(characterImage);
+  const [mapView, setMapView] = useState(styledMap);
   const [puzzle, setPuzzle] = useState(null);
   const [puzzleCreator, setPuzzleCreator] = useState(false);
   const [accountView, setAccountView] = useState(null);
@@ -66,7 +70,7 @@ const Home = () => {
       .then((response) => {
         setUserPuzzles(response.data);
       })
-  }, []);
+  }, [position]);
 
   useEffect(() => {
     console.log('Getting solved puzzles');
@@ -126,7 +130,7 @@ const Home = () => {
           onLongPress={e => { openPuzzleCreator(e) }}
           // onPress={closeModal}
           style={styles.map}
-          styleURL={styledMap}
+          styleURL={mapView}
         >
           <NavBar left={
             <>
@@ -161,7 +165,7 @@ const Home = () => {
         {puzzle !== null ? (
           <>
             <Puzzle
-              id={puzzle.id}
+              id={puzzle._id}
               riddle={puzzle.riddle}
               title={puzzle.title}
               answer={puzzle.answer}
@@ -177,11 +181,17 @@ const Home = () => {
           </>
         ) : accountView !== null ? (
           <>
-            <UserAccount close={closeModal} numberSolved={correct.length} />
+            <UserAccount close={closeModal} numberSolved={correct.length} character={character} />
           </>
         ) : rewardView !== false ? (
           <>
-            <Rewards close={closeModal} numberSolved={correct.length} />
+            <Rewards
+              close={closeModal}
+              numberSolved={correct.length}
+              setDefaultCharacter={setCharacter}
+              currentCharacter={character}
+              setMapView={setMapView}
+            />
           </>
         ) :
                 <Text> </Text>

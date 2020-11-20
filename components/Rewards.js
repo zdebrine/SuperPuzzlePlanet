@@ -76,36 +76,16 @@ const styles = StyleSheet.create({
     },
 });
 
-const Rewards = ({ close, numberSolved }) => {
-    const [character, setCharacter] = useState('detective');
-    /* const [username, setUsername] = useState('wormy');
-
-    useEffect(() => {
-        (async () => {
-            try {
-                const value = await AsyncStorage.getItem('username');
-                if (value !== null) {
-                    setUsername(value);
-                }
-            } catch (error) {
-                // Error retrieving data
-                console.log(error)
-            }
-        })();
-    }, []); */
-
-    /* const _saveUser = async () => {
-        try {
-            await AsyncStorage.setItem('username', `${username}`);
-            close();
-        } catch (error) {
-            console.log(error)
-            // Error saving data
-        }
-    } */
+const Rewards = ({ close, numberSolved, setDefaultCharacter, currentCharacter, setMapView }) => {
+    const [character, setCharacter] = useState(currentCharacter);
 
     const handleSelection = (selectedCharacter) => {
-        setCharacter(selectedCharacter);
+        setCharacter(selectedCharacter[1]);
+        setDefaultCharacter(selectedCharacter[0]);
+    };
+
+    const handleMapSelection = (selectedMap) => {
+        setMapView(selectedMap);
     };
 
     return (
@@ -118,7 +98,7 @@ const Rewards = ({ close, numberSolved }) => {
             <Text style={styles.sectionTitle}>Level {numberSolved}</Text>
             <Text style={styles.sectionBody}>Character Select</Text>
             <ScrollView horizontal={true}>
-                <TouchableOpacity id='detective' onPress={image => handleSelection('detective')}>
+                <TouchableOpacity id='detective' onPress={image => handleSelection(['https://i.ibb.co/ckG4Vmb/Group-7.png', 'detective'])}>
                     <Image
                         id='detective'
                         style={styles.logo}
@@ -132,7 +112,7 @@ const Rewards = ({ close, numberSolved }) => {
                         <></>
                     }
                 </TouchableOpacity>
-                <TouchableOpacity id='detective' onPress={image => handleSelection('ladyDetective')}>
+                <TouchableOpacity id='detective' onPress={image => handleSelection(['https://i.ibb.co/FVDW2F9/Bitmap.png', 'ladyDetective'])}>
                     <Image
                         id='lady-detective'
                         style={styles.logo}
@@ -146,7 +126,7 @@ const Rewards = ({ close, numberSolved }) => {
                         <></>
                     }
                 </TouchableOpacity>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={image => handleSelection(['https://i.ibb.co/nwmR5Vg/dino.png', 'dino'])}>
                     <Image
                         id='dino'
                         style={styles.dino}
@@ -156,7 +136,7 @@ const Rewards = ({ close, numberSolved }) => {
                     />
                     <Text style={styles.caption}>Unlock at level 12</Text>
                 </TouchableOpacity>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={image => handleSelection(['https://i.ibb.co/zJxzSK2/image.png', 'earlybird'])}>
                     <Image
                         id='earlybird'
                         style={styles.logo}
@@ -169,25 +149,46 @@ const Rewards = ({ close, numberSolved }) => {
             </ScrollView>
             <Text style={styles.sectionBody}>Map Select</Text>
             <ScrollView horizontal={true}>
-                <TouchableOpacity id='detective' onPress={image => handleSelection('detective')}>
+                <TouchableOpacity onPress={image => handleMapSelection('mapbox://styles/zdebrine/ckdv7d3c31vmq19mq8sxr7bv1')}>
                     <Image
-                        id='detective'
+                        id='default'
+                        style={styles.map}
+                        source={{
+                            uri: 'https://i.ibb.co/jg7v6VH/Screen-Shot-2020-11-19-at-2-10-45-PM.png',
+                        }}
+                    />
+                </TouchableOpacity>
+                <TouchableOpacity onPress={image => handleMapSelection('mapbox://styles/zdebrine/ck888x3ap1wsi1imdykm5r22n')}>
+                    <Image
+                        id='default'
                         style={styles.map}
                         source={{
                             uri: 'https://i.ibb.co/89kBDQn/Screen-Shot-2020-11-19-at-2-11-01-PM.png',
                         }}
                     />
                 </TouchableOpacity>
-                <TouchableOpacity>
-                    <Image
-                        id='dino'
-                        style={styles.map}
-                        source={{
-                            uri: 'https://i.ibb.co/cyKfZds/Screen-Shot-2020-11-19-at-2-10-31-PM.png',
-                        }}
-                    />
-                    <Text style={styles.caption}>Unlock at level 5</Text>
-                </TouchableOpacity>
+                {numberSolved < 5 ? (
+                    <TouchableOpacity>
+                        <Image
+                            id='dino'
+                            style={styles.map}
+                            source={{
+                                uri: 'https://i.ibb.co/cyKfZds/Screen-Shot-2020-11-19-at-2-10-31-PM.png',
+                            }}
+                        />
+                        <Text style={styles.caption}>Unlock at level 5</Text>
+                    </TouchableOpacity>
+                ) :
+                    <TouchableOpacity onPress={image => handleMapSelection('mapbox://styles/zdebrine/ck9mbtrdd0mrh1inskj4glt71')}>
+                        <Image
+                            id='dino'
+                            style={styles.map}
+                            source={{
+                                uri: 'https://i.ibb.co/cyKfZds/Screen-Shot-2020-11-19-at-2-10-31-PM.png',
+                            }}
+                        />
+                    </TouchableOpacity>
+                }
             </ScrollView>
         </ScrollView>
     );

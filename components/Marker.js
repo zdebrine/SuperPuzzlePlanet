@@ -21,7 +21,6 @@ const Marker = ({ userPuzzle, correct, setPuzzle }) => {
 
     const openPuzzle = (tappedPuzzle): void => {
         setPuzzle(tappedPuzzle);
-        console.log(tappedPuzzle);
     };
 
     return (
@@ -33,7 +32,7 @@ const Marker = ({ userPuzzle, correct, setPuzzle }) => {
             >
                 <View style={styles.annotationContainer}>
                     {
-                        correct.includes(userPuzzle.id) ? (
+                        correct.includes(userPuzzle._id) ? (
                             <Image
                                 source={{ uri: 'https://i.ibb.co/DWXDJZ4/unnamed-1.png' }}
                                 style={{ width: ANNOTATION_SIZE, height: ANNOTATION_SIZE }}
