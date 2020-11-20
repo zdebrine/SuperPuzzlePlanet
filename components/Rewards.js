@@ -126,26 +126,52 @@ const Rewards = ({ close, numberSolved, setDefaultCharacter, currentCharacter, s
                         <></>
                     }
                 </TouchableOpacity>
-                <TouchableOpacity onPress={image => handleSelection(['https://i.ibb.co/nwmR5Vg/dino.png', 'dino'])}>
-                    <Image
-                        id='dino'
-                        style={styles.dino}
-                        source={{
-                            uri: 'https://i.ibb.co/nwmR5Vg/dino.png',
-                        }}
-                    />
-                    <Text style={styles.caption}>Unlock at level 12</Text>
-                </TouchableOpacity>
-                <TouchableOpacity onPress={image => handleSelection(['https://i.ibb.co/zJxzSK2/image.png', 'earlybird'])}>
-                    <Image
-                        id='earlybird'
-                        style={styles.logo}
-                        source={{
-                            uri: 'https://i.ibb.co/zJxzSK2/image.png',
-                        }}
-                    />
-                    <Text style={styles.caption}>Unlock at level 50</Text>
-                </TouchableOpacity>
+                {numberSolved < 12 ? (
+
+                    <TouchableOpacity>
+                        <Image
+                            id='dino'
+                            style={styles.dino}
+                            source={{
+                                uri: 'https://i.ibb.co/nwmR5Vg/dino.png',
+                            }}
+                        />
+                        <Text style={styles.caption}>Unlock at level 12</Text>
+                    </TouchableOpacity>
+                ) :
+                    <TouchableOpacity onPress={image => handleSelection(['https://i.ibb.co/nwmR5Vg/dino.png', 'dino'])}>
+                        <Image
+                            id='dino'
+                            style={styles.dino}
+                            source={{
+                                uri: 'https://i.ibb.co/nwmR5Vg/dino.png',
+                            }}
+                        />
+                    </TouchableOpacity>
+                }
+                {
+                    numberSolved < 50 ? (
+                        <TouchableOpacity>
+                            <Image
+                                id='earlybird'
+                                style={styles.logo}
+                                source={{
+                                    uri: 'https://i.ibb.co/zJxzSK2/image.png',
+                                }}
+                            />
+                            <Text style={styles.caption}>Unlock at level 50</Text>
+                        </TouchableOpacity>
+                    ) :
+                        <TouchableOpacity onPress={image => handleSelection(['https://i.ibb.co/zJxzSK2/image.png', 'earlybird'])}>
+                            <Image
+                                id='earlybird'
+                                style={styles.logo}
+                                source={{
+                                    uri: 'https://i.ibb.co/zJxzSK2/image.png',
+                                }}
+                            />
+                        </TouchableOpacity>
+                }
             </ScrollView>
             <Text style={styles.sectionBody}>Map Select</Text>
             <ScrollView horizontal={true}>
