@@ -6,14 +6,14 @@ const styles = StyleSheet.create({
     logo: {
         alignItems: 'center',
         justifyContent: 'center',
-        width: 200,
-        height: 220,
+        width: Platform.OS === 'ios' ? 200 : 100,
+        height: Platform.OS === 'ios' ? 220 : 110,
     },
     dino: {
         alignItems: 'center',
         justifyContent: 'center',
-        width: 300,
-        height: 220,
+        width: Platform.OS === 'ios' ? 300 : 150,
+        height: Platform.OS === 'ios' ? 220 : 110,
     },
     nextElement: {
         alignItems: 'center',

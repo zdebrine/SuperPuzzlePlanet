@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { View, StyleSheet, Text, TouchableOpacity, Keyboard, TouchableWithoutFeedback, AsyncStorage, ScrollView, Image } from 'react-native';
+import { View, StyleSheet, Text, TouchableOpacity, Keyboard, TouchableWithoutFeedback, AsyncStorage, ScrollView, Image, Platform } from 'react-native';
 import { Card, Input, Block, Button, DeckSwiper } from 'galio-framework';
 
 const styles = StyleSheet.create({
     overlay: {
         position: 'absolute',
-        paddingTop: 100,
+        paddingTop: Platform.OS === 'ios' ? 100 : 50,
         paddingBottom: 30,
         padding: 40,
         width: '100%',
@@ -18,24 +18,24 @@ const styles = StyleSheet.create({
     map: {
         alignItems: 'center',
         justifyContent: 'center',
-        width: 200,
-        height: 200,
+        width: Platform.OS === 'ios' ? 200 : 50,
+        height: Platform.OS === 'ios' ? 200 : 50,
         marginHorizontal: 50,
         marginVertical: 10,
     },
     logo: {
         alignItems: 'center',
         justifyContent: 'center',
-        width: 100,
-        height: 120,
+        width: Platform.OS === 'ios' ? 100 : 50,
+        height: Platform.OS === 'ios' ? 120 : 60,
         marginHorizontal: 50,
         marginVertical: 20,
     },
     dino: {
         alignItems: 'center',
         justifyContent: 'center',
-        width: 200,
-        height: 120,
+        width: Platform.OS === 'ios' ? 200 : 100,
+        height: Platform.OS === 'ios' ? 120 : 60,
         marginHorizontal: 50,
         marginVertical: 20,
     },
@@ -70,9 +70,11 @@ const styles = StyleSheet.create({
         color: 'gold',
     },
     exit: {
-        marginTop: -40,
-        marginBottom: 10,
-        left: 300,
+        fontSize: 26,
+        fontWeight: '600',
+        color: 'white',
+        marginBottom: 20,
+        left: '90%',
     },
 });
 
@@ -90,11 +92,9 @@ const Rewards = ({ close, numberSolved, setDefaultCharacter, currentCharacter, s
 
     return (
         <ScrollView style={styles.overlay}>
-            <TouchableOpacity style={styles.exit} onPress={close}>
-                <Text style={styles.sectionBody}>
-                    x
-                </Text>
-            </TouchableOpacity>
+            <Text style={styles.exit} onPress={close}>
+                x
+            </Text>
             <Text style={styles.sectionTitle}>Level {numberSolved}</Text>
             <Text style={styles.sectionBody}>Character Select</Text>
             <ScrollView horizontal={true}>

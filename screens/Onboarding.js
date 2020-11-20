@@ -55,11 +55,11 @@ const styles = StyleSheet.create({
     justifyContent: "center"
   },
   text: {
-    marginTop: 0,
     marginBottom: 200,
     color: "white",
     fontSize: 20,
-    fontWeight: "bold"
+    fontWeight: "bold",
+    marginTop: Platform.OS === 'ios' ? 0 : 175,
   },
   body: {
     backgroundColor: Colors.black,
@@ -74,7 +74,7 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     color: Colors.white,
     marginBottom: 75,
-    marginTop: 150,
+    marginTop: 150
   },
   sectionDescription: {
     marginTop: 8,

@@ -48,9 +48,11 @@ const styles = StyleSheet.create({
         marginBottom: 100,
     },
     exit: {
-        marginTop: -40,
-        marginBottom: 10,
-        left: 300,
+        fontSize: 26,
+        fontWeight: '600',
+        color: 'white',
+        marginBottom: 20,
+        left: '90%',
     },
 });
 
@@ -72,11 +74,9 @@ const Puzzle = ({ riddle, title, answer, close, id, setCorrect, correct, _savePu
 
     return (
         <ScrollView style={styles.overlay}>
-            <TouchableOpacity style={styles.exit} onPress={close}>
-                <Text style={styles.sectionBody}>
-                    x
-                </Text>
-            </TouchableOpacity>
+            <Text style={styles.exit} onPress={close}>
+                x
+            </Text>
             <Image
                 id='dino'
                 style={styles.dino}

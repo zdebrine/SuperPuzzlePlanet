@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { View, StyleSheet, Text, TouchableOpacity, Keyboard, TouchableWithoutFeedback, AsyncStorage, ScrollView, Image } from 'react-native';
+import { View, StyleSheet, Text, TouchableOpacity, Keyboard, TouchableWithoutFeedback, AsyncStorage, ScrollView, Image, Platform } from 'react-native';
 import { Card, Input, Block, Button, DeckSwiper } from 'galio-framework';
 
 const styles = StyleSheet.create({
     overlay: {
         position: 'absolute',
-        paddingTop: 100,
+        paddingTop: Platform.OS === 'ios' ? 100 : 50,
         paddingBottom: 30,
         padding: 40,
         width: '100%',
@@ -18,8 +18,8 @@ const styles = StyleSheet.create({
     character: {
         alignItems: 'center',
         justifyContent: 'center',
-        width: '60%',
-        height: '40%',
+        width: Platform.OS === 'ios' ? '60%' : '20%',
+        height: Platform.OS === 'ios' ? '40%' : '15%',
         marginBottom: 20,
     },
     swiper: {
@@ -43,14 +43,21 @@ const styles = StyleSheet.create({
         color: 'white',
         marginBottom: 20,
     },
+    inputBody: {
+        marginBottom: 20,
+        marginTop: 20,
+        borderColor: 'grey',
+    },
     submitButton: {
         marginTop: 30,
         marginBottom: 100,
     },
     exit: {
-        marginTop: -40,
-        marginBottom: 10,
-        left: 300,
+        fontSize: 26,
+        fontWeight: '600',
+        color: 'white',
+        marginBottom: 20,
+        left: '90%',
     },
 });
 
@@ -87,11 +94,9 @@ const UserAccount = ({ close, numberSolved, character }) => {
 
     return (
         <ScrollView style={styles.overlay}>
-            <TouchableOpacity style={styles.exit} onPress={close}>
-                <Text style={styles.sectionBody}>
-                    x
+            <Text style={styles.exit} onPress={close}>
+                x
                 </Text>
-            </TouchableOpacity>
             <Image
                 id='dino'
                 style={styles.character}
@@ -104,7 +109,7 @@ const UserAccount = ({ close, numberSolved, character }) => {
             </TouchableWithoutFeedback>
             <Text style={styles.sectionBody}>Puzzles Solved: {numberSolved}</Text>
             <Text style={styles.sectionBody}>Change Name</Text>
-            <Input onChangeText={(text) => { handleChange(text) }} placeholder={username} color={'green'} style={{ borderColor: 'green' }} placeholderTextColor={'green'} />
+            <Input onChangeText={(text) => { handleChange(text) }} placeholder="username" color={'grey'} style={styles.inputBody} placeholderTextColor={'grey'} />
             <Button style={styles.submitButton} color="primary" onPress={_saveUser}>SUBMIT</Button>
         </ScrollView>
     );

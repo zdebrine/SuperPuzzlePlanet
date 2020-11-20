@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, StyleSheet, Text, TouchableOpacity, Image, AsyncStorage } from 'react-native';
+import { View, StyleSheet, Text, TouchableOpacity, Image, AsyncStorage, Platform } from 'react-native';
 import { Card, Input, Block, Button, NavBar } from 'galio-framework';
 import axios from 'axios';
 
@@ -23,22 +23,29 @@ const styledMap = 'mapbox://styles/zdebrine/ckdv7d3c31vmq19mq8sxr7bv1';
 const styles = StyleSheet.create({
   page: {
     flex: 1,
+    marginTop: -35,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#F5FCFF"
+    backgroundColor: "#000000"
   },
   sectionTitle: {
     fontSize: 26,
     fontWeight: '600',
     color: 'white',
   },
+  icon: {
+    width: 40,
+    height: 40,
+    marginTop: Platform.OS === 'ios' ? 200 : 15,
+  },
   container: {
-    height: '100%',
+    zIndex: -1,
+    height: Platform.OS === 'ios' ? '100%' : '80%',
     width: '100%',
     backgroundColor: "black"
   },
   map: {
-    flex: 1
+    flex: 1,
   },
   close: {
     position: 'absolute',
@@ -70,7 +77,7 @@ const Home = () => {
       .then((response) => {
         setUserPuzzles(response.data);
       })
-  }, [position]);
+  }, []);
 
   useEffect(() => {
     console.log('Getting solved puzzles');
@@ -125,6 +132,27 @@ const Home = () => {
 
   return (
     <View style={styles.page}>
+      <NavBar left={
+        <>
+          <TouchableOpacity onPress={openAccount}>
+            <Image
+              source={{ uri: 'https://i.ibb.co/1mCS6GS/settings.png' }}
+              style={styles.icon}
+            />
+          </TouchableOpacity>
+        </>
+      }
+        title={
+          <>
+            <TouchableOpacity onPress={openRewards}>
+              <Image
+                source={{ uri: 'https://i.ibb.co/LZx43xX/star.png' }}
+                style={styles.icon}
+              />
+            </TouchableOpacity>
+          </>
+        }
+        transparent={true} />
       <View style={styles.container}>
         <MapboxGL.MapView
           onLongPress={e => { openPuzzleCreator(e) }}
@@ -132,71 +160,50 @@ const Home = () => {
           style={styles.map}
           styleURL={mapView}
         >
-          <NavBar left={
-            <>
-              <TouchableOpacity onPress={openAccount}>
-                <Image
-                  source={{ uri: 'https://i.ibb.co/1mCS6GS/settings.png' }}
-                  style={{ width: 40, height: 40, marginTop: 70 }}
-                />
-              </TouchableOpacity>
-            </>
-          }
-            title={
-              <>
-                <TouchableOpacity onPress={openRewards}>
-                  <Image
-                    source={{ uri: 'https://i.ibb.co/LZx43xX/star.png' }}
-                    style={{ width: 40, height: 40, marginTop: 70 }}
-                  />
-                </TouchableOpacity>
-              </>
-            }
-            transparent={true} />
           <MapboxGL.Camera
             followZoomLevel={zoomLevel}
             followUserLocation
           />
-          <MapboxGL.UserLocation onPress={openAccount} />
           {UserPuzzles.map(userPuzzle => (
             <Marker correct={correct} userPuzzle={userPuzzle} setPuzzle={setPuzzle} />
           ))}
+          <MapboxGL.UserLocation onPress={openAccount} />
         </MapboxGL.MapView>
-        {puzzle !== null ? (
-          <>
-            <Puzzle
-              id={puzzle._id}
-              riddle={puzzle.riddle}
-              title={puzzle.title}
-              answer={puzzle.answer}
-              close={closeModal}
-              setCorrect={setCorrect}
-              correct={correct}
-              _savePuzzles={_savePuzzles}
-            />
-          </>
-        ) : puzzleCreator === true ? (
-          <>
-            <PuzzleCreator close={closeModal} position={position} username='IggyBiggums' />
-          </>
-        ) : accountView !== null ? (
-          <>
-            <UserAccount close={closeModal} numberSolved={correct.length} character={character} />
-          </>
-        ) : rewardView !== false ? (
-          <>
-            <Rewards
-              close={closeModal}
-              numberSolved={correct.length}
-              setDefaultCharacter={setCharacter}
-              currentCharacter={character}
-              setMapView={setMapView}
-            />
-          </>
-        ) :
-                <Text> </Text>
-        }
       </View>
+      {puzzle !== null ? (
+        <>
+          <Puzzle
+            id={puzzle._id}
+            riddle={puzzle.riddle}
+            title={puzzle.title}
+            answer={puzzle.answer}
+            close={closeModal}
+            setCorrect={setCorrect}
+            correct={correct}
+            _savePuzzles={_savePuzzles}
+          />
+        </>
+      ) : puzzleCreator === true ? (
+        <>
+          <PuzzleCreator close={closeModal} position={position} username='IggyBiggums' />
+        </>
+      ) : accountView !== null ? (
+        <>
+          <UserAccount close={closeModal} numberSolved={correct.length} character={character} />
+        </>
+      ) : rewardView !== false ? (
+        <>
+          <Rewards
+            close={closeModal}
+            numberSolved={correct.length}
+            setDefaultCharacter={setCharacter}
+            currentCharacter={character}
+            setMapView={setMapView}
+          />
+        </>
+      ) :
+              <Text> </Text>
+      }
     </View>
   );
 }

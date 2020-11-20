@@ -52,9 +52,11 @@ const styles = StyleSheet.create({
         marginBottom: 150,
     },
     exit: {
-        marginTop: -40,
-        marginBottom: 10,
-        left: 300,
+        fontSize: 26,
+        fontWeight: '600',
+        color: 'white',
+        marginBottom: 20,
+        left: '90%',
     },
 });
 
@@ -87,11 +89,11 @@ const PuzzleCreator = ({ close, position, username }) => {
 
     return (
         <ScrollView style={styles.overlay}>
-            <TouchableOpacity style={styles.exit} onPress={close}>
-                <Text style={styles.sectionBody}>
-                    x
+
+            <Text style={styles.exit} onPress={close}>
+                x
                 </Text>
-            </TouchableOpacity>
+
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
                 <Text style={styles.sectionTitle}>New Puzzle</Text>
             </TouchableWithoutFeedback>
