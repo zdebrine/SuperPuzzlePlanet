@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { View, StyleSheet, Text, TouchableOpacity, Image, AsyncStorage } from 'react-native';
 import { Card, Input, Block, Button, NavBar } from 'galio-framework';
+import axios from 'axios';
 
 import MapboxGL from "@react-native-mapbox-gl/maps";
 
 import Puzzle from '../components/Puzzle.js';
 import PuzzleCreator from '../components/PuzzleCreator';
 import UserAccount from '../components/UserAccount';
-import UserPuzzles from '../components/UserPuzzles';
+import DummyUserPuzzles from '../components/UserPuzzles';
 import Marker from '../components/Marker';
 import Rewards from '../components/Rewards';
 
@@ -57,6 +58,15 @@ const Home = () => {
   const [accountView, setAccountView] = useState(null);
   const [rewardView, setRewardView] = useState(false);
   const [correct, setCorrect] = useState([]);
+  const [position, setPosition] = useState(null);
+  const [UserPuzzles, setUserPuzzles] = useState(DummyUserPuzzles);
+
+  useEffect(() => {
+    axios.get('http://10.0.0.45:9003/puzzle')
+      .then((response) => {
+        setUserPuzzles(response.data);
+      })
+  }, []);
 
   useEffect(() => {
     console.log('Getting solved puzzles');
@@ -64,9 +74,8 @@ const Home = () => {
       try {
         const value = await AsyncStorage.getItem('solvedPuzzles');
         if (value !== null) {
-          console.log(value);
           let solvedArray = []
-          value.split(',').forEach(num => solvedArray.push(Number(num)));
+          value.split(',').forEach(id => solvedArray.push(id));
           setCorrect(solvedArray);
         }
       } catch (error) {
@@ -77,7 +86,6 @@ const Home = () => {
   }, []);
 
   const _savePuzzles = async (solved) => {
-    console.log(solved);
     try {
       await AsyncStorage.setItem('solvedPuzzles', `${solved}`);
     } catch (error) {
@@ -86,15 +94,12 @@ const Home = () => {
     }
   }
 
-  const onUserMarkerPress = (): void => {
-    Alert.alert('You pressed on the user location annotation');
-  };
-
   const createPuzzle = (e): void => {
     setPuzzle(e.geometry.coordinates);
   };
 
   const openPuzzleCreator = (e): void => {
+    setPosition(e.geometry.coordinates);
     setPuzzleCreator(true);
   };
 
@@ -103,6 +108,7 @@ const Home = () => {
     setPuzzleCreator(false);
     setAccountView(null);
     setRewardView(false);
+    setPosition(null);
   }
 
   const openAccount = (): void => {
@@ -117,7 +123,7 @@ const Home = () => {
     <View style={styles.page}>
       <View style={styles.container}>
         <MapboxGL.MapView
-          onLongPress={openPuzzleCreator}
+          onLongPress={e => { openPuzzleCreator(e) }}
           // onPress={closeModal}
           style={styles.map}
           styleURL={styledMap}
@@ -167,7 +173,7 @@ const Home = () => {
           </>
         ) : puzzleCreator === true ? (
           <>
-            <PuzzleCreator close={closeModal} />
+            <PuzzleCreator close={closeModal} position={position} username='IggyBiggums' />
           </>
         ) : accountView !== null ? (
           <>

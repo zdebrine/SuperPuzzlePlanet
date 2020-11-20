@@ -1,4 +1,4 @@
-const UserPuzzles = [
+const DummyUserPuzzles = [
     {
         id: 1,
         coordinates: [-105.082101, 39.922742],
@@ -25,4 +25,4 @@ const UserPuzzles = [
     }
 ]
 
-module.exports = UserPuzzles;
+module.exports = DummyUserPuzzles;

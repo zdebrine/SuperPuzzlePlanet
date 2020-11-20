@@ -44,8 +44,6 @@ const styles = StyleSheet.create({
 
 const Puzzle = ({ riddle, title, answer, close, id, setCorrect, correct, _savePuzzles }) => {
 
-    console.log(correct)
-
     const [userInput, setUserInput] = useState(null);
 
     const handleChange = (text) => {
@@ -54,7 +52,6 @@ const Puzzle = ({ riddle, title, answer, close, id, setCorrect, correct, _savePu
 
     const checkAnswer = () => {
         if (userInput === answer.toLowerCase()) {
-            console.log(correct);
             correct.push(id);
             _savePuzzles(correct);
             close();
