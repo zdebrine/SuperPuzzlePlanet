@@ -77,7 +77,6 @@ const Home = () => {
     axios.get('http://10.0.0.45:9003/puzzle')
       .then((response) => {
         setUserPuzzles(response.data);
-        console.log(response.data);
       })
   }, []);
 

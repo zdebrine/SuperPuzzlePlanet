@@ -1,27 +1,31 @@
-const express = require('express');
+
 const mongoose = require('mongoose');
-const app = express();
-const bodyParser = require('body-parser');
-const port = process.env.PORT || 9003;
+
+const mongoDB = 'mongodb://13.56.79.11:27017/pmDatabase';
+mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true });
+const db = mongoose.connection;
 const { PuzzleController } = require('./database/controller');
 
+const express = require('express');
+const app = express();
+module.exports.app = app;
+
+const PORT = 9003;
+const bodyParser = require('body-parser');
+
+var cors = require('cors');
+
+app.use(cors());
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
-mongoose.connect("mongodb://127.0.0.1:27017/pmDatabase", { useNewUrlParser: true });
-const connection = mongoose.connection;
-connection.once("open", function () {
-    console.log("MongoDB database connection established successfully");
-});
-
-
-app.listen(port, () => console.log(`Listening on port ${port}`));
+/* ============== */
 
 app.get('/puzzle', (req, res) => {
     PuzzleController.getAllPuzzles((err, data) => {
         if (err) {
             res.send(err);
         } else {
-            console.log(data);
             res.send(data);
         }
     })
@@ -35,4 +39,7 @@ app.post('/puzzle', (req, res) => {
             res.send(data);
         }
     })
-})
+});
+
+db.on('error', console.error.bind(console, 'MongoDB connection error:'));
+app.listen(PORT, () => console.log(`Listening on port ${PORT}`));
