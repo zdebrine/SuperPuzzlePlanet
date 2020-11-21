@@ -18,8 +18,8 @@ const styles = StyleSheet.create({
     character: {
         alignItems: 'center',
         justifyContent: 'center',
-        width: Platform.OS === 'ios' ? '60%' : '20%',
-        height: Platform.OS === 'ios' ? '40%' : '15%',
+        width: Platform.OS === 'ios' ? '70%' : '20%',
+        height: Platform.OS === 'ios' ? '30%' : '15%',
         marginBottom: 20,
     },
     swiper: {
@@ -35,13 +35,13 @@ const styles = StyleSheet.create({
         fontSize: 40,
         fontWeight: '600',
         color: 'white',
-        marginBottom: 50,
+        marginBottom: Platform.OS === 'ios' ? 50 : 20,
     },
     sectionBody: {
         fontSize: 26,
         fontWeight: '600',
         color: 'white',
-        marginBottom: 20,
+        marginBottom: Platform.OS === 'ios' ? 20 : 10,
     },
     inputBody: {
         marginBottom: 20,

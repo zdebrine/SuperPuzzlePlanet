@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { View, StyleSheet, Text, TouchableOpacity, Keyboard, TouchableWithoutFeedback, AsyncStorage, Image, ScrollView } from 'react-native';
+import { View, StyleSheet, Text, TouchableOpacity, Keyboard, TouchableWithoutFeedback, AsyncStorage, Image, ScrollView, platform } from 'react-native';
 import { Card, Input, Block, Button, DeckSwiper } from 'galio-framework';
 
 const styles = StyleSheet.create({
     overlay: {
         position: 'absolute',
-        paddingTop: 100,
+        paddingTop: Platform.OS === 'ios' ? 100 : 50,
         paddingBottom: 30,
         padding: 40,
         width: '100%',
@@ -18,8 +18,8 @@ const styles = StyleSheet.create({
     dino: {
         alignItems: 'center',
         justifyContent: 'center',
-        width: 300,
-        height: 220,
+        width: 150,
+        height: 110,
         marginBottom: 20,
     },
     swiper: {
@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
         fontSize: 40,
         fontWeight: '600',
         color: 'white',
-        marginBottom: 50,
+        marginBottom: 30,
     },
     sectionBody: {
         fontSize: 26,

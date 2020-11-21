@@ -66,7 +66,7 @@ const PuzzleCreator = ({ close, position, username }) => {
     const [answer, setAnswer] = useState('');
 
     const saveNewPuzzle = () => {
-        axios.post('http://10.0.0.45:9003/puzzle', {
+        axios.post('http://13.57.8.253:9003/puzzle', {
             coordinates: position,
             title: title,
             riddle: riddle,

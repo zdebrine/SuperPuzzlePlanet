@@ -61,7 +61,7 @@ const styles = StyleSheet.create({
 
 const Home = () => {
 
-  const [zoomLevel, setZoomLevel] = useState(2);
+  const [zoomLevel, setZoomLevel] = useState(15);
   const [character, setCharacter] = useState(characterImage);
   const [mapView, setMapView] = useState(styledMap);
   const [puzzle, setPuzzle] = useState(null);
@@ -73,8 +73,7 @@ const Home = () => {
   const [UserPuzzles, setUserPuzzles] = useState(DummyUserPuzzles);
 
   useEffect(() => {
-    console.log('Getting puzzles')
-    axios.get('http://10.0.0.45:9003/puzzle')
+    axios.get('http://13.57.8.253:9003/puzzle')
       .then((response) => {
         setUserPuzzles(response.data);
       })
@@ -96,9 +95,57 @@ const Home = () => {
     })();
   }, []);
 
+  useEffect(() => {
+    (async () => {
+      try {
+        const value = await AsyncStorage.getItem('character');
+        if (value !== null) {
+          setCharacter(value);
+        }
+      } catch (error) {
+        // Error retrieving data
+        console.log(error)
+      }
+    })();
+  }, []);
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const value = await AsyncStorage.getItem('map');
+        if (value !== null) {
+          console.log('here', value);
+          setMapView(value);
+        }
+      } catch (error) {
+        // Error retrieving data
+        console.log(error)
+      }
+    })();
+  }, []);
+
+  const _saveMap = async (selectedMap) => {
+    try {
+      await AsyncStorage.setItem('map', `${selectedMap}`);
+    } catch (error) {
+      console.log(error)
+      // Error saving data
+    }
+  }
+
   const _savePuzzles = async (solved) => {
     try {
       await AsyncStorage.setItem('solvedPuzzles', `${solved}`);
+    } catch (error) {
+      console.log(error)
+      // Error saving data
+    }
+  }
+
+  const _saveCharacter = async (selectedCharacter) => {
+    try {
+      await AsyncStorage.setItem('character', `${selectedCharacter}`);
+      console.log(selectedCharacter);
     } catch (error) {
       console.log(error)
       // Error saving data
@@ -164,9 +211,9 @@ const Home = () => {
             followZoomLevel={zoomLevel}
             followUserLocation
           />
-          {UserPuzzles.map(userPuzzle => (
-            <Marker correct={correct} userPuzzle={userPuzzle} setPuzzle={setPuzzle} />
-          ))}
+          {/* {UserPuzzles.map(userPuzzle => ( */}
+          <Marker correct={correct} userPuzzles={UserPuzzles} setPuzzle={setPuzzle} />
+          {/* ))} */}
           <MapboxGL.UserLocation onPress={openAccount} />
         </MapboxGL.MapView>
       </View>
@@ -199,6 +246,8 @@ const Home = () => {
             setDefaultCharacter={setCharacter}
             currentCharacter={character}
             setMapView={setMapView}
+            saveCharacter={_saveCharacter}
+            saveMap={_saveMap}
           />
         </>
       ) :

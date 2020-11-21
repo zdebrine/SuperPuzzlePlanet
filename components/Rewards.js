@@ -18,8 +18,8 @@ const styles = StyleSheet.create({
     map: {
         alignItems: 'center',
         justifyContent: 'center',
-        width: Platform.OS === 'ios' ? 200 : 50,
-        height: Platform.OS === 'ios' ? 200 : 50,
+        width: Platform.OS === 'ios' ? 100 : 50,
+        height: Platform.OS === 'ios' ? 100 : 50,
         marginHorizontal: 50,
         marginVertical: 10,
     },
@@ -78,16 +78,18 @@ const styles = StyleSheet.create({
     },
 });
 
-const Rewards = ({ close, numberSolved, setDefaultCharacter, currentCharacter, setMapView }) => {
+const Rewards = ({ close, numberSolved, setDefaultCharacter, currentCharacter, setMapView, saveCharacter, saveMap }) => {
     const [character, setCharacter] = useState(currentCharacter);
 
     const handleSelection = (selectedCharacter) => {
         setCharacter(selectedCharacter[1]);
+        saveCharacter(selectedCharacter[0]);
         setDefaultCharacter(selectedCharacter[0]);
     };
 
     const handleMapSelection = (selectedMap) => {
         setMapView(selectedMap);
+        saveMap(selectedMap)
     };
 
     return (

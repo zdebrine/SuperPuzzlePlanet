@@ -34,8 +34,10 @@ const styles = StyleSheet.create({
   logo: {
     alignItems: 'center',
     justifyContent: 'center',
-    width: 200,
-    height: 220,
+    marginTop: 150,
+    marginBottom: 50,
+    width: 220,
+    height: 75,
   },
   engine: {
     position: 'absolute',
@@ -128,7 +130,13 @@ const Onboarding = ({ setScreen, setCharacter }) => {
           contentInsetAdjustmentBehavior="automatic"
           style={styles.container}>
           <View style={styles.container} >
-            <Text style={styles.sectionTitle}>Planet Mystery</Text>
+            <Image
+              id='spplogo'
+              style={styles.logo}
+              source={{
+                uri: 'https://i.ibb.co/bvjbP37/spplogo.png',
+              }}
+            />
             <Characters character={setCharacter} />
             <Text style={styles.text} onPress={() => setScreen("Home")}>TAP TO PLAY</Text>
           </View>
