@@ -61,7 +61,7 @@ const styles = StyleSheet.create({
 
 const Home = () => {
 
-  const [zoomLevel, setZoomLevel] = useState(15);
+  const [zoomLevel, setZoomLevel] = useState(2);
   const [character, setCharacter] = useState(characterImage);
   const [mapView, setMapView] = useState(styledMap);
   const [puzzle, setPuzzle] = useState(null);
@@ -73,14 +73,15 @@ const Home = () => {
   const [UserPuzzles, setUserPuzzles] = useState(DummyUserPuzzles);
 
   useEffect(() => {
+    console.log('Getting puzzles')
     axios.get('http://10.0.0.45:9003/puzzle')
       .then((response) => {
         setUserPuzzles(response.data);
+        console.log(response.data);
       })
   }, []);
 
   useEffect(() => {
-    console.log('Getting solved puzzles');
     (async () => {
       try {
         const value = await AsyncStorage.getItem('solvedPuzzles');
