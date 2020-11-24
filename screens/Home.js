@@ -11,6 +11,7 @@ import UserAccount from '../components/UserAccount';
 import DummyUserPuzzles from '../components/UserPuzzles';
 import Marker from '../components/Marker';
 import Rewards from '../components/Rewards';
+import HelpBox from '../components/HelpBox';
 
 MapboxGL.setAccessToken(
   'pk.eyJ1IjoiemRlYnJpbmUiLCJhIjoiY2l5czc3ZTJpMDAwOTMzbGZpYmVkaHRtcyJ9.xh51OlwX5gd23KemtpOReg'
@@ -61,7 +62,7 @@ const styles = StyleSheet.create({
 
 const Home = () => {
 
-  const [zoomLevel, setZoomLevel] = useState(15);
+  const [zoomLevel, setZoomLevel] = useState(16);
   const [character, setCharacter] = useState(characterImage);
   const [mapView, setMapView] = useState(styledMap);
   const [puzzle, setPuzzle] = useState(null);
@@ -71,6 +72,7 @@ const Home = () => {
   const [correct, setCorrect] = useState([]);
   const [position, setPosition] = useState(null);
   const [UserPuzzles, setUserPuzzles] = useState(DummyUserPuzzles);
+  const [helpView, setHelpView] = useState(false);
 
   useEffect(() => {
     axios.get('http://13.57.8.253:9003/puzzle')
@@ -114,7 +116,6 @@ const Home = () => {
       try {
         const value = await AsyncStorage.getItem('map');
         if (value !== null) {
-          console.log('here', value);
           setMapView(value);
         }
       } catch (error) {
@@ -152,8 +153,8 @@ const Home = () => {
     }
   }
 
-  const createPuzzle = (e): void => {
-    setPuzzle(e.geometry.coordinates);
+  const openHelpView = (): void => {
+    setHelpView(true);
   };
 
   const openPuzzleCreator = (e): void => {
@@ -167,6 +168,7 @@ const Home = () => {
     setAccountView(null);
     setRewardView(false);
     setPosition(null);
+    setHelpView(false);
   }
 
   const openAccount = (): void => {
@@ -194,6 +196,16 @@ const Home = () => {
             <TouchableOpacity onPress={openRewards}>
               <Image
                 source={{ uri: 'https://i.ibb.co/LZx43xX/star.png' }}
+                style={styles.icon}
+              />
+            </TouchableOpacity>
+          </>
+        }
+        right={
+          <>
+            <TouchableOpacity onPress={openHelpView}>
+              <Image
+                source={{ uri: 'https://i.ibb.co/1mCS6GS/settings.png' }}
                 style={styles.icon}
               />
             </TouchableOpacity>
@@ -250,8 +262,14 @@ const Home = () => {
             saveMap={_saveMap}
           />
         </>
+      ) : helpView !== false ? (
+        <>
+          <HelpBox
+            close={closeModal}
+          />
+        </>
       ) :
-              <Text> </Text>
+                <Text> </Text>
       }
     </View>
   );

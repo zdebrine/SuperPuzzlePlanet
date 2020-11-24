@@ -10,10 +10,11 @@ target 'PlanetMystery2' do
 
   pod 'SpotSense', :git => 'https://github.com/spotsenseio/spotsenseSDK-ios.git', :commit => 'eec95b4'
   pod 'Alamofire', '~> 5.0.4'
-  pod 'react-native-mapbox-gl', :path => '../node_modules/@react-native-mapbox-gl/maps'
 
 
   permissions_path = '../node_modules/react-native-permissions/ios'
+
+  pod 'react-native-mapbox-gl', :path => '../node_modules/@react-native-mapbox-gl/maps'
  
   
   pod 'Permission-BluetoothPeripheral', :path => "#{permissions_path}/BluetoothPeripheral.podspec"
