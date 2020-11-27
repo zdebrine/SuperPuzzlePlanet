@@ -43,6 +43,12 @@ const styles = StyleSheet.create({
         color: 'white',
         marginBottom: 20,
     },
+    sectionHint: {
+        fontSize: 12,
+        fontWeight: '100',
+        color: 'white',
+        marginBottom: 5,
+    },
     submitButton: {
         marginTop: 30,
         marginBottom: 100,
@@ -59,9 +65,11 @@ const styles = StyleSheet.create({
 const Puzzle = ({ riddle, title, answer, close, id, setCorrect, correct, _savePuzzles }) => {
 
     const [userInput, setUserInput] = useState(null);
+    const [charactersLeft, setCharactersLeft] = useState(answer.length);
 
     const handleChange = (text) => {
         setUserInput(text.toLowerCase());
+        setCharactersLeft(answer.length - text.length);
     };
 
     const checkAnswer = () => {
@@ -88,6 +96,7 @@ const Puzzle = ({ riddle, title, answer, close, id, setCorrect, correct, _savePu
                 <Text style={styles.sectionTitle}>{title}</Text>
             </TouchableWithoutFeedback>
             <Text style={styles.sectionBody}>{riddle}</Text>
+            <Text style={styles.sectionHint}>{charactersLeft}</Text>
             {correct.includes(id) ? (
                 <Input disabled onChangeText={(text) => { handleChange(text) }} placeholder="SOLVED" color={'green'} style={{ borderColor: 'green' }} placeholderTextColor={'green'} />
             )
