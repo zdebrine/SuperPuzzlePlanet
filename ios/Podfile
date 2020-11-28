@@ -13,9 +13,6 @@ target 'PlanetMystery2' do
 
 
   permissions_path = '../node_modules/react-native-permissions/ios'
-
-  pod 'react-native-mapbox-gl', :path => '../node_modules/@react-native-mapbox-gl/maps'
- 
   
   pod 'Permission-BluetoothPeripheral', :path => "#{permissions_path}/BluetoothPeripheral.podspec"
   pod 'Permission-LocationAlways', :path => "#{permissions_path}/LocationAlways.podspec"
@@ -35,10 +32,10 @@ target 'PlanetMystery2' do
   
  
 
-  target 'PlanetMystery2Tests' do
-    inherit! :complete
-    # Pods for testing
-  end
+  # target 'PlanetMystery2Tests' do
+  #   inherit! :complete
+  #   # Pods for testing
+  # end
 
   # Enables Flipper.
   #
@@ -50,11 +47,11 @@ target 'PlanetMystery2' do
   # end
 end
 
-target 'PlanetMystery2-tvOS' do
-  # Pods for PlanetMystery2-tvOS
+# target 'PlanetMystery2-tvOS' do
+#   # Pods for PlanetMystery2-tvOS
 
-  target 'PlanetMystery2-tvOSTests' do
-    inherit! :search_paths
+#   target 'PlanetMystery2-tvOSTests' do
+#     inherit! :search_paths
     # Pods for testing
-  end
-end
+  # end
+# end
